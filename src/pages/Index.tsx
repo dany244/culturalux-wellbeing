@@ -6,6 +6,7 @@ import { MoodCard } from "@/components/MoodCard";
 import { ContentRow } from "@/components/ContentRow";
 import { getRecommendations } from "@/lib/recommendations";
 import { AdvisorPanel } from "@/components/AdvisorPanel";
+import { QuestLauncher } from "@/components/QuestLauncher";
 
 const Index = () => {
   const { currentMood, setMood, userName } = useMood();
@@ -60,6 +61,11 @@ const Index = () => {
       {/* AI Advisor — routes to Sanctuary */}
       <section className="max-w-3xl">
         <AdvisorPanel variant="compact" redirectToSanctuary />
+      </section>
+
+      {/* Reflection Quest */}
+      <section className="max-w-3xl">
+        <QuestLauncher />
       </section>
 
       {/* Recommendations */}
