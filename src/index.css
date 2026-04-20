@@ -126,6 +126,63 @@
   .row-fade-edges {
     mask-image: linear-gradient(to right, transparent, black 3%, black 97%, transparent);
   }
+
+  /* Soft text shadow for legibility over imagery */
+  .text-veil {
+    text-shadow: 0 2px 24px hsl(230 50% 2% / 0.7), 0 1px 2px hsl(230 50% 2% / 0.5);
+  }
+
+  /* Avatar / dot glow */
+  .avatar-glow {
+    box-shadow:
+      0 0 0 1px hsl(var(--primary) / 0.35),
+      0 0 24px -2px hsl(var(--primary) / 0.55),
+      0 0 60px -10px hsl(var(--primary-glow) / 0.45);
+  }
+
+  /* Persian-inspired star-tile pattern (subtle, ambient) */
+  .pattern-persian {
+    background-image:
+      radial-gradient(circle at 50% 50%, hsl(var(--primary) / 0.10) 0 1px, transparent 1.5px),
+      conic-gradient(from 22.5deg at 50% 50%,
+        hsl(var(--primary) / 0.06) 0deg, transparent 45deg,
+        hsl(var(--primary) / 0.06) 90deg, transparent 135deg,
+        hsl(var(--primary) / 0.06) 180deg, transparent 225deg,
+        hsl(var(--primary) / 0.06) 270deg, transparent 315deg);
+    background-size: 28px 28px, 56px 56px;
+    background-position: 0 0, 14px 14px;
+  }
+
+  /* Moroccan zellige-style diamond lattice */
+  .pattern-zellige {
+    background-image:
+      linear-gradient(45deg, hsl(var(--primary) / 0.07) 25%, transparent 25%, transparent 75%, hsl(var(--primary) / 0.07) 75%),
+      linear-gradient(45deg, hsl(var(--primary) / 0.07) 25%, transparent 25%, transparent 75%, hsl(var(--primary) / 0.07) 75%);
+    background-size: 22px 22px;
+    background-position: 0 0, 11px 11px;
+  }
+
+  /* Thin ornamental divider — a single quiet line with a centered diamond */
+  .pattern-divider {
+    position: relative;
+    height: 1px;
+    background: linear-gradient(to right,
+      transparent,
+      hsl(var(--primary-glow) / 0.35) 30%,
+      hsl(var(--primary-glow) / 0.35) 70%,
+      transparent);
+  }
+  .pattern-divider::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 6px;
+    height: 6px;
+    transform: translate(-50%, -50%) rotate(45deg);
+    background: hsl(var(--primary-glow));
+    box-shadow: 0 0 12px hsl(var(--primary) / 0.6);
+  }
 }
 
 @keyframes fade-in-up {
@@ -143,4 +200,8 @@
 @keyframes ken-burns {
   0% { transform: scale(1.05) translate(0, 0); }
   100% { transform: scale(1.15) translate(-1%, -1%); }
+}
+@keyframes caret-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
