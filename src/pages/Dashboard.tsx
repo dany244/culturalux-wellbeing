@@ -2,6 +2,8 @@ import { useMood } from "@/context/MoodContext";
 import { MOODS, getMood } from "@/lib/moods";
 import { useMemo } from "react";
 
+const TZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
 function formatTimestamp(ts: number) {
   const d = new Date(ts);
   return d.toLocaleString(undefined, {
@@ -10,6 +12,8 @@ function formatTimestamp(ts: number) {
     day: "numeric",
     hour: "numeric",
     minute: "2-digit",
+    timeZone: TZ,
+    timeZoneName: "short",
   });
 }
 
