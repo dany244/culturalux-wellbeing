@@ -183,18 +183,24 @@ export function AdvisorPanel({
 
       {response && !redirectToSanctuary && (
         <div className="space-y-6 animate-fade-in-up">
-          <article className="glass rounded-3xl p-6 md:p-8 space-y-3">
-            <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-primary-glow">
+          <article className="glass rounded-3xl p-6 md:p-8 space-y-3 relative overflow-hidden">
+            <div
+              aria-hidden
+              className="absolute inset-0 pattern-zellige opacity-[0.25] pointer-events-none"
+            />
+            <div className="relative flex items-center gap-3 text-[10px] uppercase tracking-[0.3em] text-primary-glow">
               <span
-                className="h-2 w-2 rounded-full"
+                className="h-8 w-8 rounded-full flex items-center justify-center font-display text-sm text-primary-foreground avatar-glow"
                 style={{ background: `hsl(${adv.accent})` }}
-              />
-              {adv.name} reflects
+              >
+                {adv.name.charAt(0)}
+              </span>
+              <span>{adv.name} reflects</span>
             </div>
-            <p className="font-display text-xl md:text-2xl leading-relaxed whitespace-pre-wrap">
+            <p className="relative font-display text-xl md:text-2xl leading-relaxed whitespace-pre-wrap text-veil">
               {response.reflection}
             </p>
-            <p className="text-xs text-muted-foreground">
+            <p className="relative text-xs text-muted-foreground">
               Sensed feeling:{" "}
               <span className="text-primary-glow">{response.mood}</span>
             </p>
