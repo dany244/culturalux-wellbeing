@@ -28,7 +28,7 @@ export function AdvisorPanel({
   variant = "full",
   redirectToSanctuary = false,
 }: Props) {
-  const { currentMood, setMood, userName } = useMood();
+  const { currentMood, setMood, userName, saveInteraction } = useMood();
   const navigate = useNavigate();
   const [advisor, setAdvisor] = useState<AdvisorId>(() => {
     const s = localStorage.getItem(STORAGE_ADVISOR);
@@ -70,13 +70,37 @@ export function AdvisorPanel({
         timeOfDay: getTimeOfDay(),
       });
       setResponse(res);
-      // persist mood detection into context
       setMood(res.mood as MoodId, input);
-      // fetch book in parallel
+
       setBookLoading(true);
-      fetchBook(res.book_query)
-        .then((b) => setBook(b))
+      const resolvedBook = await fetchBook(res.book_query)
+        .then((b) => {
+          setBook(b);
+          return b;
+        })
         .finally(() => setBookLoading(false));
+
+      const summary = {
+        reflection: res.reflection,
+        quote: res.quote,
+        proverb: res.proverb,
+        story: res.story,
+        book: resolvedBook
+          ? {
+              title: resolvedBook.title,
+              author: resolvedBook.author,
+              url: resolvedBook.url,
+              source: resolvedBook.source,
+            }
+          : { query: res.book_query, found: false },
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      };
+      await saveInteraction({
+        mood: res.mood as MoodId,
+        input_text: input,
+        advisor,
+        recommendation_summary: summary,
+      });
     } catch (e) {
       const msg = e instanceof Error ? e.message : "Something went quiet.";
       toast({ title: "The advisor paused", description: msg });
