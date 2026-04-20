@@ -1,25 +1,17 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useMood } from "@/context/MoodContext";
 import { MOODS, getMood } from "@/lib/moods";
 import { buildGreeting } from "@/lib/greeting";
 import { MoodCard } from "@/components/MoodCard";
 import { ContentRow } from "@/components/ContentRow";
 import { getRecommendations } from "@/lib/recommendations";
-import { ArrowRight } from "lucide-react";
+import { AdvisorPanel } from "@/components/AdvisorPanel";
 
 const Index = () => {
   const { currentMood, setMood, userName } = useMood();
-  const [note, setNote] = useState("");
   const greeting = useMemo(() => buildGreeting(userName), [userName]);
   const mood = getMood(currentMood);
   const rows = useMemo(() => getRecommendations(currentMood), [currentMood]);
-
-  const handleReflect = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!note.trim() || !currentMood) return;
-    setMood(currentMood, note.trim());
-    setNote("");
-  };
 
   return (
     <div className="container space-y-16">
@@ -65,23 +57,9 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Reflection input */}
-      <section>
-        <form onSubmit={handleReflect} className="glass-strong rounded-3xl p-2 flex items-center gap-2 max-w-2xl">
-          <input
-            value={note}
-            onChange={(e) => setNote(e.target.value)}
-            placeholder={mood ? `Say more about feeling ${mood.label.toLowerCase()}…` : "Pick a feeling, then say more…"}
-            className="flex-1 bg-transparent px-4 py-3 outline-none text-foreground placeholder:text-muted-foreground/70"
-          />
-          <button
-            type="submit"
-            disabled={!currentMood || !note.trim()}
-            className="h-11 w-11 shrink-0 rounded-full bg-primary text-primary-foreground flex items-center justify-center disabled:opacity-30 transition-all hover:shadow-[0_0_30px_-5px_hsl(var(--primary)/0.7)]"
-          >
-            <ArrowRight className="h-4 w-4" />
-          </button>
-        </form>
+      {/* AI Advisor — routes to Sanctuary */}
+      <section className="max-w-3xl">
+        <AdvisorPanel variant="compact" redirectToSanctuary />
       </section>
 
       {/* Recommendations */}
