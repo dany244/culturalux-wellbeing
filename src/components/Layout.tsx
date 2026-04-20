@@ -3,6 +3,8 @@ import { CinematicBackground } from "./CinematicBackground";
 import { Footer } from "./Footer";
 import { Home, Sparkles, Compass, BarChart3 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useMood } from "@/context/MoodContext";
+import { getMood } from "@/lib/moods";
 
 const NAV = [
   { to: "/", label: "Home", icon: Home },
@@ -13,14 +15,19 @@ const NAV = [
 
 export default function Layout() {
   const location = useLocation();
+  const { currentMood } = useMood();
+  const mood = getMood(currentMood);
+  // Mood accent (HSL string) drives the ambient pattern hue
+  const patternHue = mood?.accent ?? "var(--primary)";
   return (
     <div className="relative min-h-screen flex flex-col">
       <CinematicBackground />
 
-      {/* Ambient cultural pattern veil */}
+      {/* Ambient cultural pattern veil — hue follows current mood */}
       <div
         aria-hidden
-        className="pointer-events-none fixed inset-0 -z-[5] pattern-persian opacity-[0.35] mix-blend-overlay"
+        style={{ ["--pattern-hue" as string]: patternHue }}
+        className="pointer-events-none fixed inset-0 -z-[5] pattern-persian opacity-[0.4] mix-blend-overlay transition-opacity duration-[1600ms]"
       />
 
       {/* Top brand bar */}
