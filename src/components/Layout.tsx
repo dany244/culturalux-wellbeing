@@ -1,5 +1,6 @@
 import { Outlet, NavLink, useLocation } from "react-router-dom";
 import { CinematicBackground } from "./CinematicBackground";
+import { Footer } from "./Footer";
 import { Home, Sparkles, Compass, BarChart3 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
