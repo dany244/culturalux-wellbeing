@@ -14,8 +14,14 @@ const NAV = [
 export default function Layout() {
   const location = useLocation();
   return (
-    <div className="relative min-h-screen">
+    <div className="relative min-h-screen flex flex-col">
       <CinematicBackground />
+
+      {/* Ambient cultural pattern veil */}
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0 -z-[5] pattern-persian opacity-[0.35] mix-blend-overlay"
+      />
 
       {/* Top brand bar */}
       <header className="fixed top-0 inset-x-0 z-40">
@@ -47,9 +53,11 @@ export default function Layout() {
       </header>
 
       {/* Page content */}
-      <main key={location.pathname} className="relative z-10 pt-24 pb-32 animate-fade-in">
+      <main key={location.pathname} className="relative z-10 pt-24 pb-12 flex-1 animate-fade-in">
         <Outlet />
       </main>
+
+      <Footer />
 
       {/* Mobile bottom nav */}
       <nav className="md:hidden fixed bottom-4 inset-x-4 z-40 glass-strong rounded-full px-2 py-2 flex justify-around">
