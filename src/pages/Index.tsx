@@ -33,19 +33,9 @@ const Index = () => {
       </section>
 
       {/* Mood grid */}
-      <section className="space-y-5">
-        <div className="flex items-end justify-between">
-          <h2 className="font-display text-2xl md:text-3xl">Choose a feeling</h2>
-          {currentMood && (
-            <button
-              onClick={() => setMood(currentMood)}
-              className="text-xs text-muted-foreground hover:text-primary-glow transition-colors"
-            >
-              Log again
-            </button>
-          )}
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+      <section className="space-y-4">
+        <h2 className="font-display text-2xl md:text-3xl">Choose a feeling</h2>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-2.5 md:gap-3">
           {MOODS.map((m, i) => (
             <MoodCard
               key={m.id}
@@ -56,6 +46,17 @@ const Index = () => {
             />
           ))}
         </div>
+        {currentMood && (
+          <div className="pt-1">
+            <button
+              onClick={() => setMood(currentMood)}
+              className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground/70 hover:text-primary-glow transition-colors inline-flex items-center gap-2"
+            >
+              <span className="h-px w-6 bg-current opacity-50" />
+              Log this feeling again
+            </button>
+          </div>
+        )}
       </section>
 
       {/* AI Advisor — routes to Sanctuary */}

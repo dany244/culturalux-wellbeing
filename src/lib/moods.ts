@@ -21,6 +21,7 @@ export interface Mood {
   background: string;
   accent: string; // tailwind hsl color string for glow tint
   whisper: string;
+  glyph: string; // small symbolic avatar
 }
 
 export const MOODS: Mood[] = [
@@ -31,6 +32,7 @@ export const MOODS: Mood[] = [
     background: burnedout,
     accent: "28 90% 60%",
     whisper: "Let the day soften. You don't have to carry it alone.",
+    glyph: "☼",
   },
   {
     id: "anxious",
@@ -39,6 +41,7 @@ export const MOODS: Mood[] = [
     background: anxious,
     accent: "200 70% 65%",
     whisper: "Breathe with the water. The wave will pass.",
+    glyph: "≈",
   },
   {
     id: "sad",
@@ -47,6 +50,7 @@ export const MOODS: Mood[] = [
     background: sad,
     accent: "215 50% 60%",
     whisper: "Feel it fully. The rain knows the way.",
+    glyph: "❀",
   },
   {
     id: "unmotivated",
@@ -55,6 +59,7 @@ export const MOODS: Mood[] = [
     background: unmotivated,
     accent: "32 90% 70%",
     whisper: "A new sun is rising. Take one small step.",
+    glyph: "✶",
   },
   {
     id: "lonely",
@@ -63,6 +68,7 @@ export const MOODS: Mood[] = [
     background: lonely,
     accent: "260 50% 65%",
     whisper: "You are not alone in feeling alone.",
+    glyph: "☾",
   },
   {
     id: "overwhelmed",
@@ -71,6 +77,7 @@ export const MOODS: Mood[] = [
     background: overwhelmed,
     accent: "280 60% 70%",
     whisper: "Soften your gaze. One thing at a time.",
+    glyph: "❖",
   },
 ];
 

@@ -8,11 +8,11 @@
 
 @layer base {
   :root {
-    /* Deep midnight cinema palette */
-    --background: 230 35% 5%;
-    --foreground: 40 30% 96%;
+    /* Softer midnight palette — lifted from pitch-black for a calmer read */
+    --background: 230 28% 11%;
+    --foreground: 40 30% 97%;
 
-    --card: 230 30% 10%;
+    --card: 230 24% 15%;
     --card-foreground: 40 30% 96%;
 
     --popover: 230 35% 7%;
