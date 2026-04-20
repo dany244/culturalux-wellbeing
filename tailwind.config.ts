@@ -82,6 +82,14 @@ export default {
           "0%": { transform: "scale(1.05)" },
           "100%": { transform: "scale(1.15)" },
         },
+        "caret-blink": {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0" },
+        },
+        drift: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-6px)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -90,6 +98,8 @@ export default {
         "fade-in-up": "fade-in-up 0.9s var(--ease-cinema) both",
         "glow-pulse": "glow-pulse 4s ease-in-out infinite",
         "ken-burns": "ken-burns 30s ease-in-out infinite alternate",
+        "caret-blink": "caret-blink 1s step-end infinite",
+        drift: "drift 6s ease-in-out infinite",
       },
     },
   },

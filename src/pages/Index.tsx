@@ -19,14 +19,14 @@ const Index = () => {
       {/* Hero greeting */}
       <section className="min-h-[55vh] flex flex-col justify-center max-w-3xl space-y-6 animate-fade-in-up">
         <span className="text-xs uppercase tracking-[0.3em] text-primary-glow">Culturalux</span>
-        <h1 className="font-display text-5xl md:text-7xl leading-[1.05] text-gradient">
+        <h1 className="font-display text-5xl md:text-7xl leading-[1.05] text-gradient text-veil">
           {greeting}.
         </h1>
-        <p className="text-xl md:text-2xl text-muted-foreground font-light">
+        <p className="text-xl md:text-2xl text-foreground/85 font-light text-veil">
           How are you feeling today?
         </p>
         {mood && (
-          <p className="text-sm italic text-primary-glow/90 max-w-md animate-fade-in">
+          <p className="text-sm italic text-primary-glow/90 max-w-md animate-fade-in text-veil">
             "{mood.whisper}"
           </p>
         )}
