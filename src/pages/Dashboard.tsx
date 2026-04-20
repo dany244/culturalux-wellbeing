@@ -81,12 +81,17 @@ const Dashboard = () => {
                     className="absolute -left-[31px] top-3 h-2.5 w-2.5 rounded-full"
                     style={{ background: `hsl(${m.accent})`, boxShadow: `0 0 12px hsl(${m.accent})` }}
                   />
-                  <div className="glass rounded-2xl p-5 space-y-1">
+                  <div className="glass rounded-2xl p-5 space-y-2">
                     <div className="flex items-center justify-between gap-4">
                       <span className="font-display text-lg">{m.label}</span>
                       <span className="text-xs text-muted-foreground">{formatTimestamp(entry.timestamp)}</span>
                     </div>
                     {entry.note && <p className="text-sm text-muted-foreground leading-relaxed">{entry.note}</p>}
+                    {entry.advisor && (
+                      <p className="text-[10px] uppercase tracking-[0.2em] text-primary-glow/80">
+                        with {entry.advisor}
+                      </p>
+                    )}
                   </div>
                 </li>
               );
