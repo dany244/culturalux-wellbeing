@@ -1,6 +1,7 @@
 import { useMood } from "@/context/MoodContext";
 import { getMood } from "@/lib/moods";
 import { AdvisorPanel } from "@/components/AdvisorPanel";
+import { QuestLauncher } from "@/components/QuestLauncher";
 
 const Sanctuary = () => {
   const { currentMood } = useMood();
@@ -21,6 +22,8 @@ const Sanctuary = () => {
       </header>
 
       <AdvisorPanel variant="full" />
+
+      <QuestLauncher />
     </div>
   );
 };
