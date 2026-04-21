@@ -28,15 +28,20 @@ export function AdvisorToggle({ value, onChange }: Props) {
             }
           >
             <span
-              className="flex h-6 w-6 items-center justify-center rounded-full font-display text-[13px] leading-none transition-transform duration-500 group-hover:scale-110"
+              className="relative h-7 w-7 overflow-hidden rounded-full transition-transform duration-500 group-hover:scale-110"
               style={{
-                background: `radial-gradient(circle at 30% 30%, hsl(${a.accent} / 0.55), hsl(${a.accent} / 0.15))`,
                 boxShadow: `0 0 14px -3px hsl(${a.accent} / 0.75), inset 0 0 0 1px hsl(${a.accent} / 0.5)`,
-                color: `hsl(${a.accent})`,
               }}
               aria-hidden
             >
-              {a.glyph}
+              <img
+                src={a.portrait}
+                alt=""
+                loading="lazy"
+                width={28}
+                height={28}
+                className="h-full w-full object-cover"
+              />
             </span>
             <span className="font-medium">{a.name}</span>
             <span className="hidden sm:inline text-xs opacity-70">
