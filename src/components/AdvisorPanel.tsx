@@ -190,15 +190,20 @@ export function AdvisorPanel({
             />
             <div className="relative flex items-center gap-3 text-[10px] uppercase tracking-[0.3em] text-primary-glow">
               <span
-                className="h-9 w-9 rounded-full flex items-center justify-center font-display text-base animate-[drift_6s_ease-in-out_infinite]"
+                className="relative h-11 w-11 overflow-hidden rounded-full animate-[drift_6s_ease-in-out_infinite]"
                 style={{
-                  background: `radial-gradient(circle at 30% 30%, hsl(${adv.accent} / 0.55), hsl(${adv.accent} / 0.15))`,
-                  boxShadow: `0 0 20px -3px hsl(${adv.accent} / 0.75), inset 0 0 0 1px hsl(${adv.accent} / 0.5)`,
-                  color: `hsl(${adv.accent})`,
+                  boxShadow: `0 0 24px -3px hsl(${adv.accent} / 0.75), inset 0 0 0 1px hsl(${adv.accent} / 0.55)`,
                 }}
                 aria-hidden
               >
-                {adv.glyph}
+                <img
+                  src={adv.portrait}
+                  alt=""
+                  loading="lazy"
+                  width={44}
+                  height={44}
+                  className="h-full w-full object-cover"
+                />
               </span>
               <span>{adv.name} reflects</span>
             </div>
