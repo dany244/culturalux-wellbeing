@@ -1,3 +1,6 @@
+import ashaPortrait from "@/assets/advisor-asha.jpg";
+import laylaPortrait from "@/assets/advisor-layla.jpg";
+
 export type AdvisorId = "asha" | "reza";
 
 export interface Advisor {
@@ -7,6 +10,7 @@ export interface Advisor {
   voice: string;
   accent: string; // hsl
   glyph: string;
+  portrait: string;
 }
 
 export const ADVISORS: Advisor[] = [
@@ -17,14 +21,17 @@ export const ADVISORS: Advisor[] = [
     voice: "Speaks like soft candlelight.",
     accent: "32 95% 70%",
     glyph: "✦",
+    portrait: ashaPortrait,
   },
   {
+    // Backend id stays "reza" for compatibility; display name is Layla.
     id: "reza",
-    name: "Reza",
+    name: "Layla",
     tagline: "Deep · Philosophical",
     voice: "Asks the quiet, piercing question.",
     accent: "260 60% 70%",
     glyph: "☾",
+    portrait: laylaPortrait,
   },
 ];
 
