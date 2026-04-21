@@ -6,6 +6,7 @@ export interface Advisor {
   tagline: string;
   voice: string;
   accent: string; // hsl
+  glyph: string;
 }
 
 export const ADVISORS: Advisor[] = [
@@ -15,6 +16,7 @@ export const ADVISORS: Advisor[] = [
     tagline: "Warm · Poetic",
     voice: "Speaks like soft candlelight.",
     accent: "32 95% 70%",
+    glyph: "✦",
   },
   {
     id: "reza",
@@ -22,6 +24,7 @@ export const ADVISORS: Advisor[] = [
     tagline: "Deep · Philosophical",
     voice: "Asks the quiet, piercing question.",
     accent: "260 60% 70%",
+    glyph: "☾",
   },
 ];
 

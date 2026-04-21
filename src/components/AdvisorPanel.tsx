@@ -143,7 +143,7 @@ export function AdvisorPanel({
 
       <form
         onSubmit={handleSubmit}
-        className="glass-strong rounded-3xl p-3 md:p-4 space-y-3"
+        className="glass-strong rounded-3xl p-3 md:p-4 space-y-3 animate-fade-in-up glow-hover"
       >
         <textarea
           value={text}
@@ -190,10 +190,15 @@ export function AdvisorPanel({
             />
             <div className="relative flex items-center gap-3 text-[10px] uppercase tracking-[0.3em] text-primary-glow">
               <span
-                className="h-8 w-8 rounded-full flex items-center justify-center font-display text-sm text-primary-foreground avatar-glow"
-                style={{ background: `hsl(${adv.accent})` }}
+                className="h-9 w-9 rounded-full flex items-center justify-center font-display text-base animate-[drift_6s_ease-in-out_infinite]"
+                style={{
+                  background: `radial-gradient(circle at 30% 30%, hsl(${adv.accent} / 0.55), hsl(${adv.accent} / 0.15))`,
+                  boxShadow: `0 0 20px -3px hsl(${adv.accent} / 0.75), inset 0 0 0 1px hsl(${adv.accent} / 0.5)`,
+                  color: `hsl(${adv.accent})`,
+                }}
+                aria-hidden
               >
-                {adv.name.charAt(0)}
+                {adv.glyph}
               </span>
               <span>{adv.name} reflects</span>
             </div>
