@@ -16,8 +16,8 @@ const Index = () => {
 
   return (
     <div className="container space-y-16">
-      {/* Hero greeting */}
-      <section className="min-h-[55vh] flex flex-col justify-center max-w-3xl space-y-6 animate-fade-in-up">
+      {/* Hero greeting — centered */}
+      <section className="min-h-[55vh] flex flex-col items-center justify-center text-center max-w-3xl mx-auto space-y-6 animate-fade-in-up">
         <span className="text-xs uppercase tracking-[0.3em] text-primary-glow">Culturalux</span>
         <h1 className="font-display text-5xl md:text-7xl leading-[1.05] text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.55)]">
           {greeting}.
@@ -32,8 +32,8 @@ const Index = () => {
         )}
       </section>
 
-      {/* Mood grid */}
-      <section className="space-y-4">
+      {/* Mood grid — centered */}
+      <section className="space-y-4 max-w-5xl mx-auto w-full text-center">
         <h2 className="font-display text-2xl md:text-3xl">Choose a feeling</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-2.5 md:gap-3">
           {MOODS.map((m, i) => (
@@ -60,17 +60,17 @@ const Index = () => {
       </section>
 
       {/* AI Advisor — routes to Sanctuary */}
-      <section className="max-w-3xl">
+      <section className="max-w-3xl mx-auto w-full">
         <AdvisorPanel variant="compact" redirectToSanctuary />
       </section>
 
       {/* Reflection Quest */}
-      <section className="max-w-3xl">
+      <section className="max-w-3xl mx-auto w-full">
         <QuestLauncher />
       </section>
 
       {/* Recommendations */}
-      <div className="space-y-12">
+      <div className="space-y-12 max-w-6xl mx-auto w-full">
         {rows.map((row) => (
           <ContentRow key={row.title} title={row.title} items={row.items} />
         ))}

@@ -1,11 +1,13 @@
 import { ReactNode, useRef } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 
 export interface RowItem {
   id: string;
   title: string;
   subtitle?: string;
   badge?: string;
+  image?: string;
+  url?: string;
 }
 
 interface Props {
@@ -37,28 +39,57 @@ export function ContentRow({ title, items, renderItem }: Props) {
         ref={scrollRef}
         className="flex gap-4 overflow-x-auto scrollbar-hide row-fade-edges snap-x snap-mandatory pb-2 -mx-6 px-6"
       >
-        {items.map((item) =>
-          renderItem ? (
-            <div key={item.id} className="snap-start">{renderItem(item)}</div>
-          ) : (
-            <article
-              key={item.id}
-              className="snap-start shrink-0 w-[260px] md:w-[300px] aspect-[3/4] rounded-2xl glass glow-hover relative overflow-hidden"
-            >
-              <div className="absolute inset-0" style={{ background: "var(--gradient-mood)" }} />
-              <div className="absolute inset-0" style={{ background: "var(--gradient-fade-bottom)" }} />
+        {items.map((item) => {
+          if (renderItem) {
+            return <div key={item.id} className="snap-start">{renderItem(item)}</div>;
+          }
+
+          const Card = (
+            <article className="group/card snap-start shrink-0 w-[260px] md:w-[300px] aspect-[3/4] rounded-2xl glass glow-hover relative overflow-hidden">
+              {item.image ? (
+                <img
+                  src={item.image}
+                  alt=""
+                  loading="lazy"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover/card:scale-105"
+                />
+              ) : (
+                <div className="absolute inset-0" style={{ background: "var(--gradient-mood)" }} />
+              )}
+              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/55 to-transparent" />
+              <div aria-hidden className="absolute inset-0 pattern-zellige opacity-[0.18] mix-blend-overlay pointer-events-none" />
               <div className="absolute inset-x-0 bottom-0 p-5 space-y-1">
                 {item.badge && (
                   <span className="inline-block text-[10px] uppercase tracking-[0.2em] text-primary-glow">
                     {item.badge}
                   </span>
                 )}
-                <h3 className="font-display text-xl leading-tight">{item.title}</h3>
+                <h3 className="font-display text-xl leading-tight text-veil">{item.title}</h3>
                 {item.subtitle && <p className="text-xs text-muted-foreground">{item.subtitle}</p>}
+                {item.url && (
+                  <span className="inline-flex items-center gap-1 pt-1 text-[11px] uppercase tracking-[0.2em] text-primary-glow opacity-0 group-hover/card:opacity-100 transition-opacity">
+                    Open <ExternalLink className="h-3 w-3" />
+                  </span>
+                )}
               </div>
             </article>
-          )
-        )}
+          );
+
+          return item.url ? (
+            <a
+              key={item.id}
+              href={item.url}
+              target="_blank"
+              rel="noreferrer"
+              className="contents"
+              aria-label={`Open ${item.title}`}
+            >
+              {Card}
+            </a>
+          ) : (
+            <div key={item.id}>{Card}</div>
+          );
+        })}
       </div>
     </section>
   );

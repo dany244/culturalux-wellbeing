@@ -3,6 +3,7 @@ import { useMood, MoodEntry } from "@/context/MoodContext";
 import { MOODS, getMood, MoodId } from "@/lib/moods";
 import { computeInsights } from "@/lib/insights";
 import { Sparkles, Clock, TrendingUp, Calendar } from "lucide-react";
+import { ReflectionDetails } from "@/components/ReflectionDetails";
 
 const TZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
@@ -282,10 +283,11 @@ function RecentRow({ entry }: { entry: MoodEntry }) {
         </span>
       </div>
       {entry.note && (
-        <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">
+        <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
           {entry.note}
         </p>
       )}
+      <ReflectionDetails entry={entry} />
     </article>
   );
 }
