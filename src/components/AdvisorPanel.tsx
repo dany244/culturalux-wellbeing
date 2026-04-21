@@ -33,7 +33,8 @@ export function AdvisorPanel({
   const navigate = useNavigate();
   const [advisor, setAdvisor] = useState<AdvisorId>(() => {
     const s = localStorage.getItem(STORAGE_ADVISOR);
-    return s === "reza" ? "reza" : "asha";
+    if (s === "reza" || s === "omar" || s === "asha") return s;
+    return "asha";
   });
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
