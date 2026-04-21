@@ -19,10 +19,10 @@ const Index = () => {
       {/* Hero greeting */}
       <section className="min-h-[55vh] flex flex-col justify-center max-w-3xl space-y-6 animate-fade-in-up">
         <span className="text-xs uppercase tracking-[0.3em] text-primary-glow">Culturalux</span>
-        <h1 className="font-display text-5xl md:text-7xl leading-[1.05] text-gradient text-veil">
+        <h1 className="font-display text-5xl md:text-7xl leading-[1.05] text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.55)]">
           {greeting}.
         </h1>
-        <p className="text-xl md:text-2xl text-foreground/85 font-light text-veil">
+        <p className="text-xl md:text-2xl text-white/90 font-light drop-shadow-[0_1px_12px_rgba(0,0,0,0.45)]">
           How are you feeling today?
         </p>
         {mood && (

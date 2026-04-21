@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowRight, Loader2, Sparkles } from "lucide-react";
+import { ArrowRight, Loader2 } from "lucide-react";
 import { useMood } from "@/context/MoodContext";
 import { AdvisorId, getAdvisor } from "@/lib/advisors";
+import lampIcon from "@/assets/icon-lamp.png";
 import { AdvisorToggle } from "./AdvisorToggle";
 import { AdvisorResponseCards } from "./AdvisorResponseCards";
 import {
@@ -129,7 +130,16 @@ export function AdvisorPanel({
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-primary-glow">
-          <Sparkles className="h-3 w-3" />
+          <span
+            className="relative h-6 w-6 rounded-full flex items-center justify-center animate-[drift_6s_ease-in-out_infinite]"
+            style={{
+              background: "radial-gradient(circle at 30% 30%, hsl(var(--primary) / 0.5), hsl(var(--primary) / 0.1))",
+              boxShadow: "0 0 16px -2px hsl(var(--primary) / 0.7), inset 0 0 0 1px hsl(var(--primary) / 0.45)",
+            }}
+            aria-hidden
+          >
+            <img src={lampIcon} alt="" className="h-4 w-4 object-contain" />
+          </span>
           {compact ? "Or, talk to an advisor" : "Choose your advisor"}
         </div>
         <AdvisorToggle value={advisor} onChange={setAdvisor} />

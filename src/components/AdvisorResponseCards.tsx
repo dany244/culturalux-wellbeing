@@ -1,5 +1,9 @@
 import { BookOpen, Quote as QuoteIcon, Sparkles, Scroll } from "lucide-react";
 import { AdvisorResponse, BookCard } from "@/lib/advisorClient";
+import cardBookBg from "@/assets/card-book.jpg";
+import cardQuoteBg from "@/assets/card-quote.jpg";
+import cardProverbBg from "@/assets/card-proverb.jpg";
+import cardStoryBg from "@/assets/card-story.jpg";
 
 interface Props {
   response: AdvisorResponse;
@@ -7,14 +11,35 @@ interface Props {
   bookLoading: boolean;
 }
 
+interface CardShellProps {
+  bg: string;
+  delay: number;
+  children: React.ReactNode;
+  className?: string;
+}
+
+function CardShell({ bg, delay, children, className = "" }: CardShellProps) {
+  return (
+    <article
+      className={`relative glass-strong rounded-3xl overflow-hidden animate-fade-in-up ${className}`}
+      style={{ animationDelay: `${delay}ms` }}
+    >
+      <div
+        className="absolute inset-0 bg-cover bg-center opacity-25 group-hover:opacity-40 transition-opacity duration-700 pointer-events-none"
+        style={{ backgroundImage: `url(${bg})` }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-tr from-background/85 via-background/55 to-transparent pointer-events-none" />
+      <div className="absolute inset-0 pattern-zellige opacity-15 mix-blend-overlay pointer-events-none" />
+      <div className="relative">{children}</div>
+    </article>
+  );
+}
+
 export function AdvisorResponseCards({ response, book, bookLoading }: Props) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       {/* Book */}
-      <article
-        className="glass-strong rounded-3xl overflow-hidden flex animate-fade-in-up"
-        style={{ animationDelay: "0ms" }}
-      >
+      <CardShell bg={cardBookBg} delay={0} className="flex">
         <div className="w-28 md:w-36 shrink-0 relative bg-muted">
           {book?.cover ? (
             <img
@@ -25,8 +50,8 @@ export function AdvisorResponseCards({ response, book, bookLoading }: Props) {
             />
           ) : (
             <div
-              className="absolute inset-0"
-              style={{ background: "var(--gradient-mood)" }}
+              className="absolute inset-0 bg-cover bg-center"
+              style={{ backgroundImage: `url(${cardBookBg})` }}
             />
           )}
         </div>
@@ -38,7 +63,7 @@ export function AdvisorResponseCards({ response, book, bookLoading }: Props) {
             <p className="text-sm text-muted-foreground italic">Finding a book…</p>
           ) : book ? (
             <>
-              <h3 className="font-display text-lg leading-tight">{book.title}</h3>
+              <h3 className="font-display text-lg leading-tight text-veil">{book.title}</h3>
               <p className="text-xs text-muted-foreground">{book.author}</p>
               <a
                 href={book.url}
@@ -55,51 +80,48 @@ export function AdvisorResponseCards({ response, book, bookLoading }: Props) {
             </p>
           )}
         </div>
-      </article>
+      </CardShell>
 
       {/* Quote */}
-      <article
-        className="glass-strong rounded-3xl p-5 space-y-3 animate-fade-in-up"
-        style={{ animationDelay: "120ms" }}
-      >
-        <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-primary-glow">
-          <QuoteIcon className="h-3 w-3" /> Quote
+      <CardShell bg={cardQuoteBg} delay={120}>
+        <div className="p-5 space-y-3">
+          <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-primary-glow">
+            <QuoteIcon className="h-3 w-3" /> Quote
+          </div>
+          <p className="font-display text-lg italic leading-relaxed text-veil">
+            "{response.quote.text}"
+          </p>
+          <p className="text-xs text-muted-foreground">— {response.quote.author}</p>
         </div>
-        <p className="font-display text-lg italic leading-relaxed">
-          "{response.quote.text}"
-        </p>
-        <p className="text-xs text-muted-foreground">— {response.quote.author}</p>
-      </article>
+      </CardShell>
 
       {/* Proverb */}
-      <article
-        className="glass-strong rounded-3xl p-5 space-y-3 animate-fade-in-up"
-        style={{ animationDelay: "240ms" }}
-      >
-        <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-primary-glow">
-          <Sparkles className="h-3 w-3" /> Proverb
+      <CardShell bg={cardProverbBg} delay={240}>
+        <div className="p-5 space-y-3">
+          <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-primary-glow">
+            <Sparkles className="h-3 w-3" /> Proverb
+          </div>
+          <p className="font-display text-lg leading-relaxed text-veil">
+            {response.proverb.text}
+          </p>
+          <p className="text-xs text-muted-foreground">{response.proverb.origin}</p>
         </div>
-        <p className="font-display text-lg leading-relaxed">
-          {response.proverb.text}
-        </p>
-        <p className="text-xs text-muted-foreground">{response.proverb.origin}</p>
-      </article>
+      </CardShell>
 
       {/* Story */}
-      <article
-        className="glass-strong rounded-3xl p-5 space-y-3 animate-fade-in-up"
-        style={{ animationDelay: "360ms" }}
-      >
-        <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-primary-glow">
-          <Scroll className="h-3 w-3" /> Story
+      <CardShell bg={cardStoryBg} delay={360}>
+        <div className="p-5 space-y-3">
+          <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-primary-glow">
+            <Scroll className="h-3 w-3" /> Story
+          </div>
+          <h4 className="font-display text-lg leading-tight text-veil">
+            {response.story.title}
+          </h4>
+          <p className="text-sm text-foreground/80 leading-relaxed">
+            {response.story.teaser}
+          </p>
         </div>
-        <h4 className="font-display text-lg leading-tight">
-          {response.story.title}
-        </h4>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          {response.story.teaser}
-        </p>
-      </article>
+      </CardShell>
     </div>
   );
 }
