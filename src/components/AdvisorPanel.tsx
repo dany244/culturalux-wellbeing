@@ -143,7 +143,7 @@ export function AdvisorPanel({
 
       <form
         onSubmit={handleSubmit}
-        className="glass-strong rounded-3xl p-3 md:p-4 space-y-3"
+        className="glass-strong rounded-3xl p-3 md:p-4 space-y-3 animate-fade-in-up glow-hover"
       >
         <textarea
           value={text}
