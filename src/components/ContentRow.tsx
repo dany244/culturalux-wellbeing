@@ -1,4 +1,4 @@
-import { ReactNode, useRef } from "react";
+import { ReactNode, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 
 export interface RowItem {
@@ -21,6 +21,21 @@ export function ContentRow({ title, items, renderItem }: Props) {
   const scroll = (dir: 1 | -1) => {
     scrollRef.current?.scrollBy({ left: dir * 600, behavior: "smooth" });
   };
+
+  // Auto-center the scroll start position so the middle card is visible first.
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const center = () => {
+      const max = el.scrollWidth - el.clientWidth;
+      if (max <= 0) return; // no overflow → already centered via flex
+      el.scrollLeft = max / 2;
+    };
+    center();
+    const ro = new ResizeObserver(center);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [items.length]);
 
   return (
     <section className="space-y-3 group/row w-full min-w-0">
