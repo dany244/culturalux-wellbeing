@@ -24,9 +24,9 @@ export function ContentRow({ title, items, renderItem }: Props) {
 
   return (
     <section className="space-y-3 group/row">
-      <div className="flex items-end justify-between">
-        <h2 className="font-display text-2xl md:text-3xl text-gradient">{title}</h2>
-        <div className="hidden md:flex gap-1 opacity-0 group-hover/row:opacity-100 transition-opacity">
+      <div className="flex items-center justify-center relative">
+        <h2 className="font-display text-2xl md:text-3xl text-gradient text-center">{title}</h2>
+        <div className="hidden md:flex gap-1 absolute right-0 opacity-0 group-hover/row:opacity-100 transition-opacity">
           <button onClick={() => scroll(-1)} className="glass h-9 w-9 rounded-full flex items-center justify-center hover:text-primary-glow">
             <ChevronLeft className="h-4 w-4" />
           </button>
@@ -37,7 +37,7 @@ export function ContentRow({ title, items, renderItem }: Props) {
       </div>
       <div
         ref={scrollRef}
-        className="flex gap-4 overflow-x-auto scrollbar-hide row-fade-edges snap-x snap-mandatory pb-2 -mx-6 px-6"
+        className="flex gap-4 overflow-x-auto scrollbar-hide row-fade-edges snap-x snap-mandatory pb-2 px-6 justify-start md:justify-center"
       >
         {items.map((item) => {
           if (renderItem) {

@@ -8,7 +8,7 @@ interface Props {
 
 export function AdvisorToggle({ value, onChange }: Props) {
   return (
-    <div className="inline-flex glass rounded-full p-1 gap-1">
+    <div className="inline-flex flex-wrap justify-center glass rounded-full p-1 gap-1 mx-auto">
       {ADVISORS.map((a) => {
         const active = a.id === value;
         return (
