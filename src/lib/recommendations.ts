@@ -39,7 +39,7 @@ const BY_MOOD: Record<MoodId, Row[]> = {
       { id: "a1", title: "When Things Fall Apart", subtitle: "Pema Chödrön", badge: "Book", image: recBook, url: ol("When Things Fall Apart Pema Chodron") },
       { id: "a2", title: "The Untethered Soul", subtitle: "Michael Singer", badge: "Book", image: recBook, url: ol("The Untethered Soul Michael Singer") },
       { id: "a3", title: "Box Breathing", subtitle: "4 minute practice", badge: "Practice", image: recPractice, url: yt("box breathing 4 minute guided") },
-      { id: "a4", title: "Ocean sounds", subtitle: "30 min loop", badge: "Sound", image: recSound, url: yt("ocean sounds 30 min calm") },
+      
     ]},
   ],
   sad: [
