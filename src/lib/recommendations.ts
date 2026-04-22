@@ -2,6 +2,9 @@ import { MoodId } from "./moods";
 import { RowItem } from "@/components/ContentRow";
 
 import recBook from "@/assets/rec-book.jpg";
+import recBook1 from "@/assets/rec-book-1.jpg";
+import recBook2 from "@/assets/rec-book-2.jpg";
+import recBook3 from "@/assets/rec-book-3.jpg";
 import recFilm from "@/assets/rec-film.jpg";
 import recPractice from "@/assets/rec-practice.jpg";
 import recEssay from "@/assets/rec-essay.jpg";
