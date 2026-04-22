@@ -15,18 +15,18 @@ const Index = () => {
   const rows = useMemo(() => getRecommendations(currentMood), [currentMood]);
 
   return (
-    <div className="container space-y-16">
+    <div className="container px-4 sm:px-6 lg:px-8 space-y-12 md:space-y-16 lg:space-y-20 py-6 md:py-10">
       {/* Hero greeting — centered */}
-      <section className="min-h-[55vh] flex flex-col items-center justify-center text-center max-w-3xl mx-auto space-y-6 animate-fade-in-up">
-        <span className="text-xs uppercase tracking-[0.3em] text-primary-glow">Culturalux</span>
-        <h1 className="font-display text-5xl md:text-7xl leading-[1.05] text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.55)]">
+      <section className="min-h-[50vh] md:min-h-[55vh] flex flex-col items-center justify-center text-center max-w-3xl mx-auto space-y-4 md:space-y-6 animate-fade-in-up px-2">
+        <span className="text-[10px] md:text-xs uppercase tracking-[0.3em] text-primary-glow">Culturalux</span>
+        <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.05] text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.55)]">
           {greeting}.
         </h1>
-        <p className="text-xl md:text-2xl text-white/90 font-light drop-shadow-[0_1px_12px_rgba(0,0,0,0.45)]">
+        <p className="text-lg sm:text-xl md:text-2xl text-white/90 font-light drop-shadow-[0_1px_12px_rgba(0,0,0,0.45)]">
           How are you feeling today?
         </p>
         {mood && (
-          <p className="text-sm italic text-primary-glow/90 max-w-md animate-fade-in text-veil">
+          <p className="text-sm italic text-primary-glow/90 max-w-md mx-auto animate-fade-in text-veil">
             "{mood.whisper}"
           </p>
         )}
@@ -35,7 +35,7 @@ const Index = () => {
       {/* Mood grid — centered */}
       <section className="space-y-4 max-w-5xl mx-auto w-full text-center">
         <h2 className="font-display text-2xl md:text-3xl">Choose a feeling</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-2.5 md:gap-3">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-2.5 md:gap-3 mx-auto">
           {MOODS.map((m, i) => (
             <MoodCard
               key={m.id}
@@ -70,7 +70,7 @@ const Index = () => {
       </section>
 
       {/* Recommendations */}
-      <div className="space-y-12 max-w-6xl mx-auto w-full">
+      <div className="space-y-10 md:space-y-12 max-w-6xl mx-auto w-full">
         {rows.map((row) => (
           <ContentRow key={row.title} title={row.title} items={row.items} />
         ))}
