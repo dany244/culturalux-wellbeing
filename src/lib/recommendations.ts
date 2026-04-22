@@ -3,8 +3,6 @@ import { RowItem } from "@/components/ContentRow";
 
 import recBook from "@/assets/rec-book.jpg";
 import recFilm from "@/assets/rec-film.jpg";
-import recMusic from "@/assets/rec-music.jpg";
-import recSound from "@/assets/rec-sound.jpg";
 import recPractice from "@/assets/rec-practice.jpg";
 import recEssay from "@/assets/rec-essay.jpg";
 
@@ -20,18 +18,7 @@ const yt = (q: string) =>
 const wiki = (q: string) =>
   `https://en.wikipedia.org/wiki/Special:Search?search=${encodeURIComponent(q)}`;
 
-const COMMON: Row[] = [
-  {
-    title: "Quiet Listening",
-    items: [
-      { id: "l1", title: "Nocturne in E-flat", subtitle: "Chopin · 4 min", badge: "Music", image: recMusic, url: yt("Chopin Nocturne E flat Op 9 No 2") },
-      { id: "l2", title: "Spiegel im Spiegel", subtitle: "Arvo Pärt · 8 min", badge: "Music", image: recMusic, url: yt("Arvo Part Spiegel im Spiegel") },
-      { id: "l3", title: "Weightless", subtitle: "Marconi Union · 8 min", badge: "Ambient", image: recSound, url: yt("Marconi Union Weightless") },
-      { id: "l4", title: "Avril 14th", subtitle: "Aphex Twin · 2 min", badge: "Piano", image: recMusic, url: yt("Aphex Twin Avril 14th") },
-      { id: "l5", title: "Clair de Lune", subtitle: "Debussy · 5 min", badge: "Music", image: recMusic, url: yt("Debussy Clair de Lune") },
-    ],
-  },
-];
+const COMMON: Row[] = [];
 
 const BY_MOOD: Record<MoodId, Row[]> = {
   "burned-out": [
