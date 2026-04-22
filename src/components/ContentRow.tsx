@@ -23,9 +23,9 @@ export function ContentRow({ title, items, renderItem }: Props) {
   };
 
   return (
-    <section className="space-y-3 group/row">
-      <div className="flex items-center justify-center relative">
-        <h2 className="font-display text-2xl md:text-3xl text-gradient text-center">{title}</h2>
+    <section className="space-y-3 group/row w-full min-w-0">
+      <div className="flex items-center justify-center relative px-4">
+        <h2 className="font-display text-xl sm:text-2xl md:text-3xl text-gradient text-center">{title}</h2>
         <div className="hidden md:flex gap-1 absolute right-0 opacity-0 group-hover/row:opacity-100 transition-opacity">
           <button onClick={() => scroll(-1)} className="glass h-9 w-9 rounded-full flex items-center justify-center hover:text-primary-glow">
             <ChevronLeft className="h-4 w-4" />
@@ -37,7 +37,7 @@ export function ContentRow({ title, items, renderItem }: Props) {
       </div>
       <div
         ref={scrollRef}
-        className="flex gap-4 overflow-x-auto scrollbar-hide row-fade-edges snap-x snap-mandatory pb-2 px-6 justify-start md:justify-center"
+        className="flex gap-3 sm:gap-4 overflow-x-auto scrollbar-hide row-fade-edges snap-x snap-mandatory pb-2 px-4 sm:px-6 md:justify-center"
       >
         {items.map((item) => {
           if (renderItem) {
@@ -46,7 +46,7 @@ export function ContentRow({ title, items, renderItem }: Props) {
 
           const isBookish = ["Book", "Memoir", "Novel", "Essay", "Letters"].includes(item.badge ?? "");
           const Card = (
-            <article className="group/card snap-start shrink-0 w-[240px] md:w-[280px] aspect-[3/4] rounded-2xl glass glow-hover relative overflow-hidden ring-1 ring-border/40 hover:ring-primary/40 transition-all duration-500">
+            <article className="group/card snap-start shrink-0 w-[200px] sm:w-[240px] md:w-[280px] aspect-[3/4] rounded-2xl glass glow-hover relative overflow-hidden ring-1 ring-border/40 hover:ring-primary/40 transition-all duration-500">
               {item.image ? (
                 <img
                   src={item.image}

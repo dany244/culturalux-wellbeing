@@ -60,7 +60,7 @@ export default function Layout() {
       </header>
 
       {/* Page content */}
-      <main key={location.pathname} className="relative z-10 pt-24 pb-12 flex-1 animate-fade-in">
+      <main key={location.pathname} className="relative z-10 pt-24 pb-12 flex-1 animate-fade-in w-full overflow-x-hidden">
         <Outlet />
       </main>
 
