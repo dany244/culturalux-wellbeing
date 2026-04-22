@@ -129,7 +129,7 @@ export function AdvisorPanel({
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap items-center justify-between gap-3">
+      <div className="flex flex-wrap items-center justify-center gap-3 text-center">
         <div className="flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-primary-glow">
           <span
             className="relative h-6 w-6 rounded-full flex items-center justify-center animate-[drift_6s_ease-in-out_infinite]"
