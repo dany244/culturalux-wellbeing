@@ -202,18 +202,26 @@ const Dashboard = () => {
                     boxShadow: `0 0 12px hsl(${m.accent})`,
                   }}
                 />
-                <div className="glass rounded-2xl px-4 py-3 flex items-center justify-between gap-4">
-                  <div className="flex items-center gap-3 min-w-0">
-                    <span className="font-display text-base shrink-0">{m.label}</span>
-                    {entry.advisor && (
-                      <span className="text-[10px] uppercase tracking-[0.18em] text-primary-glow/70 shrink-0">
-                        · {entry.advisor}
-                      </span>
-                    )}
+                <div className="glass rounded-2xl px-4 py-3 space-y-2">
+                  <div className="flex items-center justify-between gap-4">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <span className="font-display text-base shrink-0">{m.label}</span>
+                      {entry.advisor && (
+                        <span className="text-[10px] uppercase tracking-[0.18em] text-primary-glow/70 shrink-0">
+                          · {entry.advisor}
+                        </span>
+                      )}
+                    </div>
+                    <span className="text-xs text-muted-foreground tabular-nums shrink-0">
+                      {formatDateTime(entry.timestamp)}
+                    </span>
                   </div>
-                  <span className="text-xs text-muted-foreground tabular-nums shrink-0">
-                    {formatDateTime(entry.timestamp)}
-                  </span>
+                  {entry.note && (
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {entry.note}
+                    </p>
+                  )}
+                  <ReflectionDetails entry={entry} />
                 </div>
               </li>
             );

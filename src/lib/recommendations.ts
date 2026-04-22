@@ -2,9 +2,10 @@ import { MoodId } from "./moods";
 import { RowItem } from "@/components/ContentRow";
 
 import recBook from "@/assets/rec-book.jpg";
+import recBook1 from "@/assets/rec-book-1.jpg";
+import recBook2 from "@/assets/rec-book-2.jpg";
+import recBook3 from "@/assets/rec-book-3.jpg";
 import recFilm from "@/assets/rec-film.jpg";
-import recMusic from "@/assets/rec-music.jpg";
-import recSound from "@/assets/rec-sound.jpg";
 import recPractice from "@/assets/rec-practice.jpg";
 import recEssay from "@/assets/rec-essay.jpg";
 
@@ -20,26 +21,15 @@ const yt = (q: string) =>
 const wiki = (q: string) =>
   `https://en.wikipedia.org/wiki/Special:Search?search=${encodeURIComponent(q)}`;
 
-const COMMON: Row[] = [
-  {
-    title: "Quiet Listening",
-    items: [
-      { id: "l1", title: "Nocturne in E-flat", subtitle: "Chopin · 4 min", badge: "Music", image: recMusic, url: yt("Chopin Nocturne E flat Op 9 No 2") },
-      { id: "l2", title: "Spiegel im Spiegel", subtitle: "Arvo Pärt · 8 min", badge: "Music", image: recMusic, url: yt("Arvo Part Spiegel im Spiegel") },
-      { id: "l3", title: "Weightless", subtitle: "Marconi Union · 8 min", badge: "Ambient", image: recSound, url: yt("Marconi Union Weightless") },
-      { id: "l4", title: "Avril 14th", subtitle: "Aphex Twin · 2 min", badge: "Piano", image: recMusic, url: yt("Aphex Twin Avril 14th") },
-      { id: "l5", title: "Clair de Lune", subtitle: "Debussy · 5 min", badge: "Music", image: recMusic, url: yt("Debussy Clair de Lune") },
-    ],
-  },
-];
+const COMMON: Row[] = [];
 
 const BY_MOOD: Record<MoodId, Row[]> = {
   "burned-out": [
     { title: "Permission to Rest", items: [
       { id: "b1", title: "How to Do Nothing", subtitle: "Jenny Odell", badge: "Essay", image: recEssay, url: ol("How to Do Nothing Jenny Odell") },
-      { id: "b2", title: "The Sabbath", subtitle: "Abraham Heschel", badge: "Book", image: recBook, url: ol("The Sabbath Abraham Heschel") },
+      { id: "b2", title: "The Sabbath", subtitle: "Abraham Heschel", badge: "Book", image: recBook1, url: ol("The Sabbath Abraham Heschel") },
       { id: "b3", title: "On Slowness", subtitle: "A short film", badge: "Watch", image: recFilm, url: yt("On slowness short film") },
-      { id: "b4", title: "Wintering", subtitle: "Katherine May", badge: "Book", image: recBook, url: ol("Wintering Katherine May") },
+      { id: "b4", title: "Wintering", subtitle: "Katherine May", badge: "Book", image: recBook2, url: ol("Windowing Katherine May") },
     ]},
     { title: "Sunsets to Watch", items: [
       { id: "s1", title: "Paterson", subtitle: "Jim Jarmusch · 2016", badge: "Film", image: recFilm, url: wiki("Paterson 2016 film") },
@@ -49,38 +39,38 @@ const BY_MOOD: Record<MoodId, Row[]> = {
   ],
   anxious: [
     { title: "Stillness", items: [
-      { id: "a1", title: "When Things Fall Apart", subtitle: "Pema Chödrön", badge: "Book", image: recBook, url: ol("When Things Fall Apart Pema Chodron") },
-      { id: "a2", title: "The Untethered Soul", subtitle: "Michael Singer", badge: "Book", image: recBook, url: ol("The Untethered Soul Michael Singer") },
+      { id: "a1", title: "When Things Fall Apart", subtitle: "Pema Chödrön", badge: "Book", image: recBook1, url: ol("When Things Fall Apart Pema Chodron") },
+      { id: "a2", title: "The Untethered Soul", subtitle: "Michael Singer", badge: "Book", image: recBook3, url: ol("The Untethered Soul Michael Singer") },
       { id: "a3", title: "Box Breathing", subtitle: "4 minute practice", badge: "Practice", image: recPractice, url: yt("box breathing 4 minute guided") },
-      { id: "a4", title: "Ocean sounds", subtitle: "30 min loop", badge: "Sound", image: recSound, url: yt("ocean sounds 30 min calm") },
+      
     ]},
   ],
   sad: [
     { title: "Tender Companions", items: [
-      { id: "sd1", title: "The Year of Magical Thinking", subtitle: "Joan Didion", badge: "Memoir", image: recBook, url: ol("The Year of Magical Thinking Didion") },
-      { id: "sd2", title: "A Little Life", subtitle: "Hanya Yanagihara", badge: "Novel", image: recBook, url: ol("A Little Life Yanagihara") },
+      { id: "sd1", title: "The Year of Magical Thinking", subtitle: "Joan Didion", badge: "Memoir", image: recBook1, url: ol("The Year of Magical Thinking Didion") },
+      { id: "sd2", title: "A Little Life", subtitle: "Hanya Yanagihara", badge: "Novel", image: recBook3, url: ol("A Little Life Yanagihara") },
       { id: "sd3", title: "Letters to a Young Poet", subtitle: "Rilke", badge: "Letters", image: recEssay, url: ol("Letters to a Young Poet Rilke") },
       { id: "sd4", title: "Bluets", subtitle: "Maggie Nelson", badge: "Essay", image: recEssay, url: ol("Bluets Maggie Nelson") },
     ]},
   ],
   unmotivated: [
     { title: "Small Sparks", items: [
-      { id: "u1", title: "The War of Art", subtitle: "Steven Pressfield", badge: "Book", image: recBook, url: ol("The War of Art Pressfield") },
-      { id: "u2", title: "Bird by Bird", subtitle: "Anne Lamott", badge: "Book", image: recBook, url: ol("Bird by Bird Anne Lamott") },
+      { id: "u1", title: "The War of Art", subtitle: "Steven Pressfield", badge: "Book", image: recBook1, url: ol("The War of Art Pressfield") },
+      { id: "u2", title: "Bird by Bird", subtitle: "Anne Lamott", badge: "Book", image: recBook2, url: ol("Bird by Bird Anne Lamott") },
       { id: "u3", title: "Ten minutes outside", subtitle: "A simple ritual", badge: "Practice", image: recPractice, url: yt("ten minute mindful walk outside") },
     ]},
   ],
   lonely: [
     { title: "You Are Not Alone", items: [
-      { id: "ln1", title: "The Lonely City", subtitle: "Olivia Laing", badge: "Book", image: recBook, url: ol("The Lonely City Olivia Laing") },
+      { id: "ln1", title: "The Lonely City", subtitle: "Olivia Laing", badge: "Book", image: recBook3, url: ol("The Lonely City Olivia Laing") },
       { id: "ln2", title: "Just Kids", subtitle: "Patti Smith", badge: "Memoir", image: recEssay, url: ol("Just Kids Patti Smith") },
       { id: "ln3", title: "Lost in Translation", subtitle: "Sofia Coppola", badge: "Film", image: recFilm, url: wiki("Lost in Translation film") },
     ]},
   ],
   overwhelmed: [
     { title: "One Thing at a Time", items: [
-      { id: "o1", title: "Four Thousand Weeks", subtitle: "Oliver Burkeman", badge: "Book", image: recBook, url: ol("Four Thousand Weeks Burkeman") },
-      { id: "o2", title: "Essentialism", subtitle: "Greg McKeown", badge: "Book", image: recBook, url: ol("Essentialism Greg McKeown") },
+      { id: "o1", title: "Four Thousand Weeks", subtitle: "Oliver Burkeman", badge: "Book", image: recBook1, url: ol("Four Thousand Weeks Burkeman") },
+      { id: "o2", title: "Essentialism", subtitle: "Greg McKeown", badge: "Book", image: recBook2, url: ol("Essentialism Greg McKeown") },
       { id: "o3", title: "A walk without a phone", subtitle: "Tonight's invitation", badge: "Practice", image: recPractice, url: yt("walk without phone mindful evening") },
     ]},
   ],

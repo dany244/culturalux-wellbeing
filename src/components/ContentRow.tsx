@@ -44,28 +44,37 @@ export function ContentRow({ title, items, renderItem }: Props) {
             return <div key={item.id} className="snap-start">{renderItem(item)}</div>;
           }
 
+          const isBookish = ["Book", "Memoir", "Novel", "Essay", "Letters"].includes(item.badge ?? "");
           const Card = (
-            <article className="group/card snap-start shrink-0 w-[260px] md:w-[300px] aspect-[3/4] rounded-2xl glass glow-hover relative overflow-hidden">
+            <article className="group/card snap-start shrink-0 w-[240px] md:w-[280px] aspect-[3/4] rounded-2xl glass glow-hover relative overflow-hidden ring-1 ring-border/40 hover:ring-primary/40 transition-all duration-500">
               {item.image ? (
                 <img
                   src={item.image}
                   alt=""
                   loading="lazy"
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover/card:scale-105"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover/card:scale-[1.06]"
                 />
               ) : (
                 <div className="absolute inset-0" style={{ background: "var(--gradient-mood)" }} />
               )}
-              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/55 to-transparent" />
-              <div aria-hidden className="absolute inset-0 pattern-zellige opacity-[0.18] mix-blend-overlay pointer-events-none" />
-              <div className="absolute inset-x-0 bottom-0 p-5 space-y-1">
-                {item.badge && (
-                  <span className="inline-block text-[10px] uppercase tracking-[0.2em] text-primary-glow">
-                    {item.badge}
-                  </span>
-                )}
-                <h3 className="font-display text-xl leading-tight text-veil">{item.title}</h3>
-                {item.subtitle && <p className="text-xs text-muted-foreground">{item.subtitle}</p>}
+              {/* Soft top vignette so badge reads */}
+              <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-background/70 to-transparent" />
+              {/* Bottom veil for text */}
+              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent" />
+              <div aria-hidden className="absolute inset-0 pattern-zellige opacity-[0.12] mix-blend-overlay pointer-events-none" />
+
+              {/* Badge top-left */}
+              {item.badge && (
+                <span className="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full glass-strong px-2.5 py-1 text-[10px] uppercase tracking-[0.2em] text-primary-glow">
+                  {isBookish && <span className="h-1 w-1 rounded-full bg-primary-glow shadow-[0_0_6px_hsl(var(--primary))]" />}
+                  {item.badge}
+                </span>
+              )}
+
+              <div className="absolute inset-x-0 bottom-0 p-5 space-y-1.5">
+                <span className="block h-px w-10 bg-gradient-to-r from-primary-glow/80 to-transparent mb-2" />
+                <h3 className="font-display text-lg md:text-xl leading-tight text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">{item.title}</h3>
+                {item.subtitle && <p className="text-xs text-foreground/75">{item.subtitle}</p>}
                 {item.url && (
                   <span className="inline-flex items-center gap-1 pt-1 text-[11px] uppercase tracking-[0.2em] text-primary-glow opacity-0 group-hover/card:opacity-100 transition-opacity">
                     Open <ExternalLink className="h-3 w-3" />
