@@ -53,7 +53,7 @@ const BY_MOOD: Record<MoodId, Row[]> = {
       { id: "sd4", title: "Bluets", subtitle: "Maggie Nelson", badge: "Essay", image: recEssay, url: ol("Bluets Maggie Nelson") },
     ]},
   ],
-  unmotivated: [
+  motivated: [
     { title: "Small Sparks", items: [
       { id: "u1", title: "The War of Art", subtitle: "Steven Pressfield", badge: "Book", image: recBook1, url: ol("The War of Art Pressfield") },
       { id: "u2", title: "Bird by Bird", subtitle: "Anne Lamott", badge: "Book", image: recBook2, url: ol("Bird by Bird Anne Lamott") },

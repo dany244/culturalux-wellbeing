@@ -18,7 +18,7 @@ const Index = () => {
     <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 md:space-y-16 lg:space-y-20 py-6 md:py-10 pb-28 md:pb-12 overflow-x-hidden">
       {/* Hero greeting — centered */}
       <section className="min-h-[50vh] md:min-h-[55vh] flex flex-col items-center justify-center text-center w-full max-w-3xl mx-auto space-y-4 md:space-y-6 animate-fade-in-up">
-        <span className="text-[10px] md:text-xs uppercase tracking-[0.3em] text-primary-glow">Culturalux</span>
+        <span className="text-[10px] md:text-xs uppercase tracking-[0.3em] text-primary-glow">Cultura Lux</span>
         <h1 className="font-display text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.05] text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.55)] break-words hyphens-auto">
           {greeting}.
         </h1>

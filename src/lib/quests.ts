@@ -111,7 +111,7 @@ const BY_MOOD: Partial<Record<MoodId, QuestStep[]>> = {
       reveal: "Rest is not a reward for finishing. It's the soil everything grows from.",
     },
   ],
-  unmotivated: [
+  motivated: [
     {
       type: "riddle",
       prompt: "I am the smallest possible step. Take me, and the next one appears. What am I?",
