@@ -41,12 +41,12 @@ const Index = () => {
       </section>
 
       {/* AI Advisor — routes to Sanctuary */}
-      <section className="max-w-3xl mx-auto w-full">
+      <section className="max-w-3xl mx-auto w-full animate-fade-in-up" style={{ animationDelay: "120ms" }}>
         <AdvisorPanel variant="compact" redirectToSanctuary />
       </section>
 
       {/* Mood grid — centered */}
-      <section className="space-y-4 max-w-5xl mx-auto w-full text-center">
+      <section className="space-y-4 max-w-5xl mx-auto w-full text-center animate-fade-in-up" style={{ animationDelay: "240ms" }}>
         <h2 className="font-display text-2xl md:text-3xl">Choose a feeling</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-2.5 md:gap-3 mx-auto">
           {MOODS.map((m, i) => (
@@ -60,7 +60,7 @@ const Index = () => {
           ))}
         </div>
         {currentMood && (
-          <div className="pt-1">
+          <div className="pt-1 animate-fade-in">
             <button
               onClick={() => setMood(currentMood)}
               className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground/70 hover:text-primary-glow transition-colors inline-flex items-center gap-2"
@@ -73,14 +73,16 @@ const Index = () => {
       </section>
 
       {/* Reflection Quest */}
-      <section className="max-w-3xl mx-auto w-full">
+      <section className="max-w-3xl mx-auto w-full animate-fade-in-up" style={{ animationDelay: "360ms" }}>
         <QuestLauncher />
       </section>
 
       {/* Recommendations */}
       <div className="space-y-10 md:space-y-12 max-w-6xl mx-auto w-full">
-        {rows.map((row) => (
-          <ContentRow key={row.title} title={row.title} items={row.items} />
+        {rows.map((row, idx) => (
+          <div key={row.title} className="animate-fade-in-up" style={{ animationDelay: `${480 + idx * 120}ms` }}>
+            <ContentRow title={row.title} items={row.items} />
+          </div>
         ))}
       </div>
     </div>
