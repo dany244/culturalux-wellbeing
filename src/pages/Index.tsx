@@ -40,6 +40,11 @@ const Index = () => {
         )}
       </section>
 
+      {/* AI Advisor — routes to Sanctuary */}
+      <section className="max-w-3xl mx-auto w-full">
+        <AdvisorPanel variant="compact" redirectToSanctuary />
+      </section>
+
       {/* Mood grid — centered */}
       <section className="space-y-4 max-w-5xl mx-auto w-full text-center">
         <h2 className="font-display text-2xl md:text-3xl">Choose a feeling</h2>
@@ -65,11 +70,6 @@ const Index = () => {
             </button>
           </div>
         )}
-      </section>
-
-      {/* AI Advisor — routes to Sanctuary */}
-      <section className="max-w-3xl mx-auto w-full">
-        <AdvisorPanel variant="compact" redirectToSanctuary />
       </section>
 
       {/* Reflection Quest */}
