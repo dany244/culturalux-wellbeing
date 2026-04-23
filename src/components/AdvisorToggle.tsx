@@ -8,7 +8,7 @@ interface Props {
 
 export function AdvisorToggle({ value, onChange }: Props) {
   return (
-    <div className="inline-flex flex-wrap justify-center glass rounded-full p-1 gap-1 mx-auto">
+    <div className="grid grid-cols-2 sm:flex sm:flex-wrap sm:justify-center glass rounded-3xl sm:rounded-full p-1.5 gap-1.5 mx-auto w-full sm:w-auto max-w-md">
       {ADVISORS.map((a) => {
         const active = a.id === value;
         return (
@@ -16,7 +16,7 @@ export function AdvisorToggle({ value, onChange }: Props) {
             key={a.id}
             onClick={() => onChange(a.id)}
             className={cn(
-              "group px-3 py-1.5 rounded-full text-sm transition-all duration-500 flex items-center gap-2 hover:-translate-y-0.5",
+              "group px-3 py-2 rounded-2xl sm:rounded-full text-sm transition-all duration-500 flex items-center gap-2 hover:-translate-y-0.5 min-w-0",
               active
                 ? "bg-primary/10 text-foreground shadow-[0_0_24px_-6px_hsl(var(--primary)/0.7)]"
                 : "text-muted-foreground hover:text-foreground",
