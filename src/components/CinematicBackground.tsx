@@ -4,12 +4,15 @@ import { useEffect, useState } from "react";
 
 /**
  * Full-screen fixed cinematic background.
- * Crossfades smoothly when mood changes. Sits behind all content.
+ * - When no mood is selected: shows the default background with a stronger scrim
+ *   so the hero text remains perfectly legible.
+ * - When a mood is selected: crossfades to that mood's image with a softer scrim.
  */
 export function CinematicBackground() {
   const { currentMood } = useMood();
   const mood = getMood(currentMood);
   const target = mood?.background ?? DEFAULT_BG;
+  const isDefault = !mood;
 
   // Two layers for crossfade
   const [layerA, setLayerA] = useState(target);
@@ -40,14 +43,19 @@ export function CinematicBackground() {
           style={{ backgroundImage: `url(${layerB})`, opacity: showB ? 1 : 0 }}
         />
       )}
-      {/* Cinematic vignette + stronger scrim for text legibility */}
+      {/* Cinematic vignette + scrim for text legibility.
+          Stronger when no mood is selected so default hero text stays readable. */}
       <div className="absolute inset-0" style={{ background: "var(--gradient-fade-top)" }} />
-      <div className="absolute inset-0 bg-background/45" />
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 transition-opacity duration-[1400ms] ease-out"
+        style={{ background: "hsl(var(--background) / 1)", opacity: isDefault ? 0.6 : 0.4 }}
+      />
+      <div
+        className="absolute inset-0 transition-opacity duration-[1400ms] ease-out"
         style={{
+          opacity: isDefault ? 1 : 0.85,
           background:
-            "linear-gradient(180deg, hsl(var(--background) / 0.55) 0%, hsl(var(--background) / 0.25) 40%, hsl(var(--background) / 0.65) 100%)",
+            "linear-gradient(180deg, hsl(var(--background) / 0.65) 0%, hsl(var(--background) / 0.35) 40%, hsl(var(--background) / 0.75) 100%)",
         }}
       />
     </div>

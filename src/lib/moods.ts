@@ -6,6 +6,7 @@ import overwhelmed from "@/assets/mood-overwhelmed.jpg";
 import motivated from "@/assets/mood-motivated.jpg";
 import good from "@/assets/mood-good.jpg";
 import inspired from "@/assets/mood-inspired.jpg";
+import hopeful from "@/assets/mood-hopeful.jpg";
 import defaultBg from "@/assets/mood-default.jpg";
 
 export type MoodId =
@@ -16,7 +17,8 @@ export type MoodId =
   | "lonely"
   | "overwhelmed"
   | "good"
-  | "inspired";
+  | "inspired"
+  | "hopeful";
 
 export interface Mood {
   id: MoodId;
@@ -100,6 +102,15 @@ export const MOODS: Mood[] = [
     accent: "190 80% 65%",
     whisper: "Catch the spark. Follow where it glows.",
     glyph: "✧",
+  },
+  {
+    id: "hopeful",
+    label: "Hopeful",
+    description: "Quietly rising",
+    background: hopeful,
+    accent: "350 75% 75%",
+    whisper: "Dawn doesn't rush. Neither must you.",
+    glyph: "❋",
   },
 ];
 
