@@ -40,9 +40,16 @@ export function CinematicBackground() {
           style={{ backgroundImage: `url(${layerB})`, opacity: showB ? 1 : 0 }}
         />
       )}
-      {/* Lighter cinematic vignette + softer scrim for a brighter, airier feel */}
+      {/* Cinematic vignette + stronger scrim for text legibility */}
       <div className="absolute inset-0" style={{ background: "var(--gradient-fade-top)" }} />
-      <div className="absolute inset-0 bg-background/15" />
+      <div className="absolute inset-0 bg-background/45" />
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(180deg, hsl(var(--background) / 0.55) 0%, hsl(var(--background) / 0.25) 40%, hsl(var(--background) / 0.65) 100%)",
+        }}
+      />
     </div>
   );
 }
