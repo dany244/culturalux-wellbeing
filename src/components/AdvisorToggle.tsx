@@ -43,8 +43,8 @@ export function AdvisorToggle({ value, onChange }: Props) {
                 className="h-full w-full object-cover"
               />
             </span>
-            <span className="font-medium">{a.name}</span>
-            <span className="hidden sm:inline text-xs opacity-70">
+            <span className="font-medium truncate">{a.name}</span>
+            <span className="hidden md:inline text-xs opacity-70 truncate">
               {a.tagline}
             </span>
           </button>
