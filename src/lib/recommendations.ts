@@ -23,7 +23,7 @@ const wiki = (q: string) =>
 
 const COMMON: Row[] = [];
 
-const BY_MOOD: Record<MoodId, Row[]> = {
+const BY_MOOD: Partial<Record<MoodId, Row[]>> = {
   "burned-out": [
     { title: "Permission to Rest", items: [
       { id: "b1", title: "How to Do Nothing", subtitle: "Jenny Odell", badge: "Essay", image: recEssay, url: ol("How to Do Nothing Jenny Odell") },
@@ -78,5 +78,5 @@ const BY_MOOD: Record<MoodId, Row[]> = {
 
 export function getRecommendations(mood: MoodId | null): Row[] {
   if (!mood) return COMMON;
-  return [...BY_MOOD[mood], ...COMMON];
+  return [...(BY_MOOD[mood] ?? []), ...COMMON];
 }
