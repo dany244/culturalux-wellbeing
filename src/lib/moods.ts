@@ -103,6 +103,15 @@ export const MOODS: Mood[] = [
     whisper: "Catch the spark. Follow where it glows.",
     glyph: "✧",
   },
+  {
+    id: "hopeful",
+    label: "Hopeful",
+    description: "Quietly rising",
+    background: hopeful,
+    accent: "350 75% 75%",
+    whisper: "Dawn doesn't rush. Neither must you.",
+    glyph: "❋",
+  },
 ];
 
 export const DEFAULT_BG = defaultBg;
