@@ -1,8 +1,9 @@
 import ashaPortrait from "@/assets/advisor-asha.jpg";
 import laylaPortrait from "@/assets/advisor-layla.jpg";
 import omarPortrait from "@/assets/advisor-omar.jpg";
+import jamesPortrait from "@/assets/advisor-james.jpg";
 
-export type AdvisorId = "asha" | "reza" | "omar";
+export type AdvisorId = "asha" | "reza" | "omar" | "james";
 
 export interface Advisor {
   id: AdvisorId;
@@ -42,6 +43,15 @@ export const ADVISORS: Advisor[] = [
     accent: "150 45% 60%",
     glyph: "☉",
     portrait: omarPortrait,
+  },
+  {
+    id: "james",
+    name: "James",
+    tagline: "Clear · Encouraging",
+    voice: "A bright mind and a friendly nudge forward.",
+    accent: "200 80% 65%",
+    glyph: "✺",
+    portrait: jamesPortrait,
   },
 ];
 

@@ -3,16 +3,20 @@ import sad from "@/assets/mood-sad.jpg";
 import burnedout from "@/assets/mood-burnedout.jpg";
 import lonely from "@/assets/mood-lonely.jpg";
 import overwhelmed from "@/assets/mood-overwhelmed.jpg";
-import unmotivated from "@/assets/mood-unmotivated.jpg";
+import motivated from "@/assets/mood-motivated.jpg";
+import good from "@/assets/mood-good.jpg";
+import inspired from "@/assets/mood-inspired.jpg";
 import defaultBg from "@/assets/mood-default.jpg";
 
 export type MoodId =
   | "burned-out"
   | "anxious"
   | "sad"
-  | "unmotivated"
+  | "motivated"
   | "lonely"
-  | "overwhelmed";
+  | "overwhelmed"
+  | "good"
+  | "inspired";
 
 export interface Mood {
   id: MoodId;
@@ -53,12 +57,12 @@ export const MOODS: Mood[] = [
     glyph: "❀",
   },
   {
-    id: "unmotivated",
-    label: "Unmotivated",
-    description: "Stuck, uninspired",
-    background: unmotivated,
-    accent: "32 90% 70%",
-    whisper: "A new sun is rising. Take one small step.",
+    id: "motivated",
+    label: "Motivated",
+    description: "Driven, ready",
+    background: motivated,
+    accent: "32 90% 65%",
+    whisper: "The fire is yours. Move with it, gently.",
     glyph: "✶",
   },
   {
@@ -78,6 +82,24 @@ export const MOODS: Mood[] = [
     accent: "280 60% 70%",
     whisper: "Soften your gaze. One thing at a time.",
     glyph: "❖",
+  },
+  {
+    id: "good",
+    label: "Good",
+    description: "Steady, content",
+    background: good,
+    accent: "140 55% 65%",
+    whisper: "Let the quiet light stay a while.",
+    glyph: "❁",
+  },
+  {
+    id: "inspired",
+    label: "Inspired",
+    description: "Awake, luminous",
+    background: inspired,
+    accent: "190 80% 65%",
+    whisper: "Catch the spark. Follow where it glows.",
+    glyph: "✧",
   },
 ];
 

@@ -11,6 +11,8 @@ import Index from "./pages/Index.tsx";
 import Sanctuary from "./pages/Sanctuary.tsx";
 import Explore from "./pages/Explore.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
+import Shop from "./pages/Shop.tsx";
+import Membership from "./pages/Membership.tsx";
 import Auth from "./pages/Auth.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
@@ -29,6 +31,8 @@ const App = () => (
               <Route element={<Layout />}>
                 <Route path="/" element={<Index />} />
                 <Route path="/explore" element={<Explore />} />
+                <Route path="/shop" element={<Shop />} />
+                <Route path="/membership" element={<Membership />} />
                 <Route
                   path="/sanctuary"
                   element={
