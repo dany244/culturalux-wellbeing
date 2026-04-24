@@ -27,6 +27,8 @@ interface BookResult {
   audio_url?: string | null;
   isbn?: string | null;
   preview?: string | null;
+  matched_cues?: string[];
+  tone?: "reflective" | "dark" | "hopeful" | "neutral";
 }
 
 const safeFetch = async (url: string, init?: RequestInit, timeoutMs = 6000) => {
