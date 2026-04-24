@@ -1,8 +1,8 @@
-import { Outlet, NavLink, useLocation } from "react-router-dom";
+import { Outlet, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { CinematicBackground } from "./CinematicBackground";
 import { Footer } from "./Footer";
 import { DevDiagnostics } from "./DevDiagnostics";
-import { Home, Sparkles, Compass, BarChart3, ShoppingBag, Crown } from "lucide-react";
+import { Home, Sparkles, Compass, BarChart3, ShoppingBag, Crown, ArrowLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useMood } from "@/context/MoodContext";
 import { getMood } from "@/lib/moods";
@@ -18,8 +18,14 @@ const NAV = [
 
 export default function Layout() {
   const location = useLocation();
+  const navigate = useNavigate();
   const { currentMood } = useMood();
   const mood = getMood(currentMood);
+  const showBack = location.pathname !== "/";
+  const handleBack = () => {
+    if (window.history.length > 1) navigate(-1);
+    else navigate("/");
+  };
   // Mood accent (HSL string) drives the ambient pattern hue
   const patternHue = mood?.accent ?? "var(--primary)";
   return (
@@ -36,10 +42,23 @@ export default function Layout() {
       {/* Top brand bar */}
       <header className="fixed top-0 inset-x-0 z-40">
         <div className="container flex items-center justify-between py-5">
-          <NavLink to="/" className="flex items-center gap-2 group">
-            <span className="h-2 w-2 rounded-full bg-primary glow-soft animate-glow-pulse" />
-            <span className="font-display text-xl tracking-wide text-gradient">Cultura Lux</span>
-          </NavLink>
+          <div className="flex items-center gap-3">
+            <NavLink to="/" className="flex items-center gap-2 group">
+              <span className="h-2 w-2 rounded-full bg-primary glow-soft animate-glow-pulse" />
+              <span className="font-display text-xl tracking-wide text-gradient">Cultura Lux</span>
+            </NavLink>
+            {showBack && (
+              <button
+                type="button"
+                onClick={handleBack}
+                aria-label="Go back"
+                className="glass rounded-full px-3 py-1.5 flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <ArrowLeft className="h-3.5 w-3.5" />
+                <span className="hidden sm:inline">Back</span>
+              </button>
+            )}
+          </div>
           <nav className="hidden md:flex items-center gap-1 glass rounded-full px-2 py-1.5">
             {NAV.map(({ to, label }) => (
               <NavLink

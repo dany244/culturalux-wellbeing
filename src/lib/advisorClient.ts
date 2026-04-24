@@ -31,6 +31,8 @@ export interface BookCard {
   description?: string;
   preview?: string | null;
   isbn?: string | null;
+  matched_cues?: string[];
+  tone?: "reflective" | "dark" | "hopeful" | "neutral";
 }
 
 export async function callAdvisor(input: {

@@ -27,6 +27,8 @@ interface BookResult {
   audio_url?: string | null;
   isbn?: string | null;
   preview?: string | null;
+  matched_cues?: string[];
+  tone?: "reflective" | "dark" | "hopeful" | "neutral";
 }
 
 const safeFetch = async (url: string, init?: RequestInit, timeoutMs = 6000) => {
@@ -334,6 +336,19 @@ serve(async (req) => {
     }
 
     found.sort((a, b) => score(b, moodKey) - score(a, moodKey));
+
+    // Attach matched cues + tone for UI explanation (no raw scores exposed)
+    if (moodKey) {
+      const cuesList = MOOD_CUES[moodKey] ?? [];
+      const tone = MOOD_TONE[moodKey] ?? "neutral";
+      for (const b of found) {
+        const hay = `${b.title} ${b.author} ${b.description ?? ""}`.toLowerCase();
+        const matched = cuesList.filter((c) => hay.includes(c)).slice(0, 3);
+        b.matched_cues = matched;
+        b.tone = tone;
+      }
+    }
+
     const max = typeof limit === "number" && limit > 0 ? Math.min(limit, 12) : 5;
     const [book, ...rest] = found;
 

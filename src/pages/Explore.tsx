@@ -142,6 +142,26 @@ const Explore = () => {
                       {b.author}
                       {b.free_full_text ? " · Free full text" : ""}
                     </div>
+                    {currentMood && (b.tone || (b.matched_cues && b.matched_cues.length > 0)) && (
+                      <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
+                        <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                          Why this match
+                        </span>
+                        {b.tone && b.tone !== "neutral" && (
+                          <span className="text-[10px] px-2 py-0.5 rounded-full bg-primary/15 text-primary-glow border border-primary/20">
+                            {b.tone}
+                          </span>
+                        )}
+                        {b.matched_cues?.map((c) => (
+                          <span
+                            key={c}
+                            className="text-[10px] px-2 py-0.5 rounded-full bg-foreground/5 text-muted-foreground border border-foreground/10"
+                          >
+                            {c}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                     {b.description && (
                       <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
                         {b.description}
