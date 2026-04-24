@@ -18,8 +18,14 @@ const NAV = [
 
 export default function Layout() {
   const location = useLocation();
+  const navigate = useNavigate();
   const { currentMood } = useMood();
   const mood = getMood(currentMood);
+  const showBack = location.pathname !== "/";
+  const handleBack = () => {
+    if (window.history.length > 1) navigate(-1);
+    else navigate("/");
+  };
   // Mood accent (HSL string) drives the ambient pattern hue
   const patternHue = mood?.accent ?? "var(--primary)";
   return (
