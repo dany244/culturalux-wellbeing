@@ -6,6 +6,7 @@ import { Home, Sparkles, Compass, BarChart3, ShoppingBag, Crown, ArrowLeft } fro
 import { cn } from "@/lib/utils";
 import { useMood } from "@/context/MoodContext";
 import { getMood } from "@/lib/moods";
+import culturaLuxLogo from "@/assets/cultura-lux-logo.png";
 
 const NAV = [
   { to: "/", label: "Home", icon: Home },
@@ -44,7 +45,11 @@ export default function Layout() {
         <div className="container flex items-center justify-between py-5">
           <div className="flex items-center gap-3">
             <NavLink to="/" className="flex items-center gap-2 group">
-              <span className="h-2 w-2 rounded-full bg-primary glow-soft animate-glow-pulse" />
+              <img
+                src={culturaLuxLogo}
+                alt="Cultura Lux"
+                className="h-9 w-9 object-contain drop-shadow-[0_0_12px_hsl(var(--primary)/0.4)]"
+              />
               <span className="font-display text-xl tracking-wide text-gradient">Cultura Lux</span>
             </NavLink>
             {showBack && (
