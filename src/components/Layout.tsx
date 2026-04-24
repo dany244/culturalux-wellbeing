@@ -1,8 +1,8 @@
-import { Outlet, NavLink, useLocation } from "react-router-dom";
+import { Outlet, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { CinematicBackground } from "./CinematicBackground";
 import { Footer } from "./Footer";
 import { DevDiagnostics } from "./DevDiagnostics";
-import { Home, Sparkles, Compass, BarChart3, ShoppingBag, Crown } from "lucide-react";
+import { Home, Sparkles, Compass, BarChart3, ShoppingBag, Crown, ArrowLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useMood } from "@/context/MoodContext";
 import { getMood } from "@/lib/moods";
