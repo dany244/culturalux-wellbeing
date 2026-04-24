@@ -11,13 +11,26 @@ export interface AdvisorResponse {
   story: { title: string; teaser: string };
 }
 
+export type BookSource =
+  | "openlibrary"
+  | "gutendex"
+  | "googlebooks"
+  | "standardebooks"
+  | "nyt"
+  | "poetrydb"
+  | "philosophers"
+  | "librivox";
+
 export interface BookCard {
   title: string;
   author: string;
   cover?: string | null;
   url: string;
-  source: "openlibrary" | "gutendex";
+  source: BookSource;
   free_full_text?: boolean;
+  description?: string;
+  preview?: string | null;
+  isbn?: string | null;
 }
 
 export async function callAdvisor(input: {
