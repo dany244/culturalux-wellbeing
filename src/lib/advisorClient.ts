@@ -53,9 +53,12 @@ export async function callAdvisor(input: {
   return data as AdvisorResponse;
 }
 
-export async function fetchBook(query: string): Promise<BookCard | null> {
+export async function fetchBook(
+  query: string,
+  mood?: MoodId | null,
+): Promise<BookCard | null> {
   const { data, error } = await supabase.functions.invoke("book-search", {
-    body: { query },
+    body: { query, mood: mood ?? null },
   });
   if (error) {
     console.error("book-search error", error);
@@ -63,4 +66,21 @@ export async function fetchBook(query: string): Promise<BookCard | null> {
   }
   if ((data as any)?.error) return null;
   return (data as any).book as BookCard;
+}
+
+export async function fetchBooks(
+  query: string,
+  mood?: MoodId | null,
+  limit = 8,
+): Promise<BookCard[]> {
+  const { data, error } = await supabase.functions.invoke("book-search", {
+    body: { query, mood: mood ?? null, limit },
+  });
+  if (error || (data as any)?.error) {
+    if (error) console.error("book-search error", error);
+    return [];
+  }
+  const book = (data as any).book as BookCard | undefined;
+  const alts = ((data as any).alternates ?? []) as BookCard[];
+  return [book, ...alts].filter(Boolean) as BookCard[];
 }
