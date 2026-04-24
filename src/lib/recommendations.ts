@@ -45,14 +45,6 @@ const BY_MOOD: Partial<Record<MoodId, Row[]>> = {
       
     ]},
   ],
-  sad: [
-    { title: "Tender Companions", items: [
-      { id: "sd1", title: "The Year of Magical Thinking", subtitle: "Joan Didion", badge: "Memoir", image: recBook1, url: ol("The Year of Magical Thinking Didion") },
-      { id: "sd2", title: "A Little Life", subtitle: "Hanya Yanagihara", badge: "Novel", image: recBook3, url: ol("A Little Life Yanagihara") },
-      { id: "sd3", title: "Letters to a Young Poet", subtitle: "Rilke", badge: "Letters", image: recEssay, url: ol("Letters to a Young Poet Rilke") },
-      { id: "sd4", title: "Bluets", subtitle: "Maggie Nelson", badge: "Essay", image: recEssay, url: ol("Bluets Maggie Nelson") },
-    ]},
-  ],
   motivated: [
     { title: "Small Sparks", items: [
       { id: "u1", title: "The War of Art", subtitle: "Steven Pressfield", badge: "Book", image: recBook1, url: ol("The War of Art Pressfield") },

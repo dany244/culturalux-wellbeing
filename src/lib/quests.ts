@@ -81,15 +81,6 @@ const BY_MOOD: Partial<Record<MoodId, QuestStep[]>> = {
       reveal: "The body is always in the present. The mind is the one that travels.",
     },
   ],
-  sad: [
-    {
-      type: "proverb",
-      prompt: "Complete this Persian proverb: \"After every night ___ a morning.\"",
-      options: ["comes", "follows", "waits", "rises"],
-      answer: "comes",
-      reveal: "Sadness is honest. It doesn't lie about what mattered to you.",
-    },
-  ],
   lonely: [
     {
       type: "story",

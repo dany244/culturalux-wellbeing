@@ -1,5 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import { useMood } from "@/context/MoodContext";
+import { getMood } from "@/lib/moods";
+import { fetchBooks, type BookCard } from "@/lib/advisorClient";
+import { Skeleton } from "@/components/ui/skeleton";
 
 type Tab = "books" | "quotes" | "proverbs" | "stories";
 
@@ -10,15 +14,7 @@ const TABS: { id: Tab; label: string }[] = [
   { id: "stories", label: "Stories" },
 ];
 
-const CONTENT: Record<Tab, { title: string; meta?: string; body?: string }[]> = {
-  books: [
-    { title: "Letters to a Young Poet", meta: "Rainer Maria Rilke", body: "Be patient toward all that is unsolved in your heart." },
-    { title: "Tao Te Ching", meta: "Lao Tzu", body: "Nature does not hurry, yet everything is accomplished." },
-    { title: "The Prophet", meta: "Kahlil Gibran", body: "Your pain is the breaking of the shell that encloses your understanding." },
-    { title: "Meditations", meta: "Marcus Aurelius", body: "You have power over your mind — not outside events." },
-    { title: "The Bell Jar", meta: "Sylvia Plath" },
-    { title: "Norwegian Wood", meta: "Haruki Murakami" },
-  ],
+const STATIC_CONTENT: Record<Exclude<Tab, "books">, { title: string; meta?: string; body?: string }[]> = {
   quotes: [
     { title: "“The wound is the place where the Light enters you.”", meta: "Rumi" },
     { title: "“What is to give light must endure burning.”", meta: "Viktor Frankl" },
@@ -40,15 +36,60 @@ const CONTENT: Record<Tab, { title: string; meta?: string; body?: string }[]> = 
   ],
 };
 
+// Default seed query when no mood is selected
+const DEFAULT_QUERY = "wisdom contemplative literature";
+
+const MOOD_QUERY: Record<string, string> = {
+  "burned-out": "rest restorative quiet living",
+  anxious: "calm stillness anxiety mindfulness",
+  motivated: "courage discipline creative work",
+  lonely: "solitude belonging companionship memoir",
+  overwhelmed: "simplicity essentialism focus",
+  inspired: "creativity wonder imagination",
+  hopeful: "hope renewal light essays",
+};
+
 const Explore = () => {
   const [tab, setTab] = useState<Tab>("books");
-  const items = CONTENT[tab];
+  const { currentMood } = useMood();
+  const mood = getMood(currentMood);
+
+  const [books, setBooks] = useState<BookCard[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (tab !== "books") return;
+    let cancelled = false;
+    setLoading(true);
+    const q = currentMood
+      ? MOOD_QUERY[currentMood] ?? DEFAULT_QUERY
+      : DEFAULT_QUERY;
+    fetchBooks(q, currentMood, 8)
+      .then((res) => {
+        if (!cancelled) setBooks(res);
+      })
+      .finally(() => !cancelled && setLoading(false));
+    return () => {
+      cancelled = true;
+    };
+  }, [tab, currentMood]);
 
   return (
     <div className="container space-y-10 py-8">
       <header className="space-y-3 animate-fade-in-up">
         <span className="text-xs uppercase tracking-[0.3em] text-primary-glow">Explore</span>
         <h1 className="font-display text-4xl md:text-6xl text-gradient">Wisdom for the in-between.</h1>
+        {mood ? (
+          <p className="text-sm text-muted-foreground">
+            Tuned to your mood:{" "}
+            <span className="text-primary-glow">{mood.label.toLowerCase()}</span> ·{" "}
+            <span className="italic">{mood.whisper}</span>
+          </p>
+        ) : (
+          <p className="text-sm text-muted-foreground">
+            Select a mood on the home page to tune these recommendations.
+          </p>
+        )}
       </header>
 
       <div className="glass inline-flex rounded-full p-1.5 gap-1">
@@ -68,21 +109,68 @@ const Explore = () => {
         ))}
       </div>
 
-      <div className="grid md:grid-cols-2 gap-4">
-        {items.map((it, i) => (
-          <article
-            key={it.title + i}
-            className="glass glow-hover rounded-3xl p-6 md:p-8 space-y-3 animate-fade-in-up"
-            style={{ animationDelay: `${i * 60}ms` }}
-          >
-            <h3 className="font-display text-xl md:text-2xl leading-snug">{it.title}</h3>
-            {it.body && <p className="text-muted-foreground leading-relaxed">{it.body}</p>}
-            {it.meta && (
-              <div className="text-xs uppercase tracking-[0.25em] text-primary-glow/80">{it.meta}</div>
-            )}
-          </article>
-        ))}
-      </div>
+      {tab === "books" ? (
+        <div className="grid md:grid-cols-2 gap-4">
+          {loading && books.length === 0
+            ? Array.from({ length: 4 }).map((_, i) => (
+                <Skeleton key={i} className="h-40 rounded-3xl" />
+              ))
+            : books.map((b, i) => (
+                <a
+                  key={(b.url ?? b.title) + i}
+                  href={b.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="glass glow-hover rounded-3xl p-6 md:p-8 flex gap-4 animate-fade-in-up"
+                  style={{ animationDelay: `${i * 60}ms` }}
+                >
+                  {b.cover ? (
+                    <img
+                      src={b.cover}
+                      alt=""
+                      loading="lazy"
+                      className="w-20 h-28 object-cover rounded-lg shadow-lg shrink-0"
+                    />
+                  ) : (
+                    <div className="w-20 h-28 rounded-lg bg-primary/10 shrink-0" />
+                  )}
+                  <div className="space-y-2 min-w-0">
+                    <h3 className="font-display text-xl md:text-2xl leading-snug truncate">
+                      {b.title}
+                    </h3>
+                    <div className="text-xs uppercase tracking-[0.25em] text-primary-glow/80">
+                      {b.author}
+                      {b.free_full_text ? " · Free full text" : ""}
+                    </div>
+                    {b.description && (
+                      <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
+                        {b.description}
+                      </p>
+                    )}
+                  </div>
+                </a>
+              ))}
+          {!loading && books.length === 0 && (
+            <p className="text-muted-foreground">No books found right now. Try another mood.</p>
+          )}
+        </div>
+      ) : (
+        <div className="grid md:grid-cols-2 gap-4">
+          {STATIC_CONTENT[tab].map((it, i) => (
+            <article
+              key={it.title + i}
+              className="glass glow-hover rounded-3xl p-6 md:p-8 space-y-3 animate-fade-in-up"
+              style={{ animationDelay: `${i * 60}ms` }}
+            >
+              <h3 className="font-display text-xl md:text-2xl leading-snug">{it.title}</h3>
+              {it.body && <p className="text-muted-foreground leading-relaxed">{it.body}</p>}
+              {it.meta && (
+                <div className="text-xs uppercase tracking-[0.25em] text-primary-glow/80">{it.meta}</div>
+              )}
+            </article>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
