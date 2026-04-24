@@ -233,8 +233,42 @@ async function searchNYT(q: string): Promise<BookResult | null> {
   }
 }
 
+// Mood → style cues used to rank results (StoryGraph-inspired)
+const MOOD_CUES: Record<string, string[]> = {
+  "burned-out": ["rest", "slow", "quiet", "gentle", "soft", "restorative", "tender"],
+  anxious: ["calm", "stillness", "grounding", "mindful", "breath", "reassuring", "soothing"],
+  motivated: ["inspiring", "bold", "courage", "drive", "ambition", "uplifting", "challenging"],
+  lonely: ["companion", "intimate", "tender", "warm", "connection", "belonging", "memoir"],
+  overwhelmed: ["simple", "clarity", "minimal", "calm", "essential", "focus", "quiet"],
+  inspired: ["luminous", "creative", "wonder", "awe", "imaginative", "visionary", "lyrical"],
+  hopeful: ["hopeful", "light", "bright", "renewal", "dawn", "uplifting", "redemptive", "tender"],
+};
+
+const MOOD_TONE: Record<string, "reflective" | "dark" | "hopeful" | "neutral"> = {
+  "burned-out": "reflective",
+  anxious: "reflective",
+  motivated: "hopeful",
+  lonely: "reflective",
+  overwhelmed: "reflective",
+  inspired: "hopeful",
+  hopeful: "hopeful",
+};
+
+function moodScore(b: BookResult, mood?: string | null): number {
+  if (!mood) return 0;
+  const cues = MOOD_CUES[mood] ?? [];
+  const hay = `${b.title} ${b.author} ${b.description ?? ""}`.toLowerCase();
+  let s = 0;
+  for (const cue of cues) if (hay.includes(cue)) s += 2;
+  // tone bonus
+  const tone = MOOD_TONE[mood];
+  if (tone === "hopeful" && /(hope|light|dawn|joy|renewal)/.test(hay)) s += 2;
+  if (tone === "reflective" && /(quiet|still|reflect|solitude|memoir|essay)/.test(hay)) s += 2;
+  return s;
+}
+
 // Score results so we pick the richest, prioritizing free full text
-function score(b: BookResult): number {
+function score(b: BookResult, mood?: string | null): number {
   let s = 0;
   if (b.free_full_text) s += 5;
   if (b.cover) s += 3;
@@ -252,6 +286,7 @@ function score(b: BookResult): number {
     librivox: 1,
   };
   s += pref[b.source] ?? 0;
+  s += moodScore(b, mood);
   return s;
 }
 
@@ -260,7 +295,7 @@ serve(async (req) => {
     return new Response(null, { headers: corsHeaders });
 
   try {
-    const { query } = await req.json();
+    const { query, mood, limit } = await req.json();
     if (!query || typeof query !== "string") {
       return new Response(
         JSON.stringify({ error: "query required" }),
@@ -271,10 +306,15 @@ serve(async (req) => {
       );
     }
 
+    // Fold mood cues into the query string to bias upstream APIs
+    const moodKey = typeof mood === "string" ? mood : null;
+    const cues = moodKey ? (MOOD_CUES[moodKey] ?? []).slice(0, 2).join(" ") : "";
+    const enrichedQuery = cues ? `${query} ${cues}` : query;
+
     const results = await Promise.all([
-      searchOpenLibrary(query),
-      searchGutendex(query),
-      searchGoogleBooks(query),
+      searchOpenLibrary(enrichedQuery),
+      searchGutendex(enrichedQuery),
+      searchGoogleBooks(enrichedQuery),
       searchStandardEbooks(query),
       searchPoetryDB(query),
       searchPhilosophers(query),
@@ -293,13 +333,15 @@ serve(async (req) => {
       );
     }
 
-    found.sort((a, b) => score(b) - score(a));
+    found.sort((a, b) => score(b, moodKey) - score(a, moodKey));
+    const max = typeof limit === "number" && limit > 0 ? Math.min(limit, 12) : 5;
     const [book, ...rest] = found;
 
     return new Response(
       JSON.stringify({
         book,
-        alternates: rest.slice(0, 4),
+        alternates: rest.slice(0, max - 1),
+        mood: moodKey,
         sources_tried: results.length,
         sources_found: found.length,
       }),
