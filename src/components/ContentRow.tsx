@@ -18,8 +18,6 @@ interface Props {
 
 export function ContentRow({ title, items, renderItem }: Props) {
   const scrollRef = useRef<HTMLDivElement>(null);
-  // Guard: never render an empty row.
-  if (!items || items.length === 0) return null;
   const scroll = (dir: 1 | -1) => {
     scrollRef.current?.scrollBy({ left: dir * 600, behavior: "smooth" });
   };
@@ -38,6 +36,9 @@ export function ContentRow({ title, items, renderItem }: Props) {
     ro.observe(el);
     return () => ro.disconnect();
   }, [items.length]);
+
+  // Guard: never render an empty row (must be after hooks to keep hook order stable).
+  if (!items || items.length === 0) return null;
 
   return (
     <section className="space-y-3 group/row w-full min-w-0">
