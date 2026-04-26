@@ -66,13 +66,6 @@ const BY_MOOD: Partial<Record<MoodId, Row[]>> = {
       { id: "o3", title: "A walk without a phone", subtitle: "Tonight's invitation", badge: "Practice", image: recPractice, url: yt("walk without phone mindful evening") },
     ]},
   ],
-  hopeful: [
-    { title: "Quiet Light", items: [
-      { id: "h1", title: "Hope in the Dark", subtitle: "Rebecca Solnit", badge: "Essay", image: recEssay, url: ol("Hope in the Dark Rebecca Solnit") },
-      { id: "h2", title: "Man's Search for Meaning", subtitle: "Viktor Frankl", badge: "Book", image: recBook2, url: ol("Man's Search for Meaning Frankl") },
-      { id: "h3", title: "Sunrise breath", subtitle: "5 minute practice", badge: "Practice", image: recPractice, url: yt("sunrise breathing meditation") },
-    ]},
-  ],
 };
 
 export function getRecommendations(mood: MoodId | null): Row[] {
