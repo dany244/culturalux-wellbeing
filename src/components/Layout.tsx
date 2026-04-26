@@ -9,12 +9,12 @@ import { getMood } from "@/lib/moods";
 import culturaLuxLogo from "@/assets/cultura-lux-logo.png";
 
 const NAV = [
-  { to: "/", label: "Home", icon: Home },
-  { to: "/sanctuary", label: "Sanctuary", icon: Sparkles },
-  { to: "/explore", label: "Explore", icon: Compass },
-  { to: "/shop", label: "Shop", icon: ShoppingBag },
-  { to: "/membership", label: "Membership", icon: Crown },
-  { to: "/dashboard", label: "Dashboard", icon: BarChart3 },
+  { to: "/", label: "Home", shortLabel: "Home", icon: Home },
+  { to: "/sanctuary", label: "Sanctuary", shortLabel: "Sanct.", icon: Sparkles },
+  { to: "/explore", label: "Explore", shortLabel: "Explore", icon: Compass },
+  { to: "/shop", label: "Shop", shortLabel: "Shop", icon: ShoppingBag },
+  { to: "/membership", label: "Membership", shortLabel: "Member", icon: Crown },
+  { to: "/dashboard", label: "Dashboard", shortLabel: "Stats", icon: BarChart3 },
 ];
 
 export default function Layout() {
