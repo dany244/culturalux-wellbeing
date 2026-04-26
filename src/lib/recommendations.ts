@@ -69,6 +69,7 @@ const BY_MOOD: Partial<Record<MoodId, Row[]>> = {
 };
 
 export function getRecommendations(mood: MoodId | null): Row[] {
-  if (!mood) return COMMON;
-  return [...(BY_MOOD[mood] ?? []), ...COMMON];
+  const rows = mood ? [...(BY_MOOD[mood] ?? []), ...COMMON] : COMMON;
+  // Never return rows that have no items — keeps the UI from rendering empty sections.
+  return rows.filter((r) => Array.isArray(r.items) && r.items.length > 0);
 }
