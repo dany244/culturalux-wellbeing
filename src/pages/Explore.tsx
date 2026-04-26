@@ -46,7 +46,6 @@ const MOOD_QUERY: Record<string, string> = {
   lonely: "solitude belonging companionship memoir",
   overwhelmed: "simplicity essentialism focus",
   inspired: "creativity wonder imagination",
-  hopeful: "hope renewal light essays",
 };
 
 const Explore = () => {
