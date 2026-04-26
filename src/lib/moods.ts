@@ -4,7 +4,6 @@ import lonely from "@/assets/mood-lonely.jpg";
 import overwhelmed from "@/assets/mood-overwhelmed.jpg";
 import motivated from "@/assets/mood-motivated.jpg";
 import inspired from "@/assets/mood-inspired.jpg";
-import hopeful from "@/assets/mood-hopeful.jpg";
 import defaultBg from "@/assets/mood-default.jpg";
 
 export type MoodId =
@@ -13,8 +12,7 @@ export type MoodId =
   | "motivated"
   | "lonely"
   | "overwhelmed"
-  | "inspired"
-  | "hopeful";
+  | "inspired";
 
 export interface Mood {
   id: MoodId;
