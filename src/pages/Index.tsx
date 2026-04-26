@@ -7,6 +7,7 @@ import { ContentRow } from "@/components/ContentRow";
 import { getRecommendations } from "@/lib/recommendations";
 import { AdvisorPanel } from "@/components/AdvisorPanel";
 import { QuestLauncher } from "@/components/QuestLauncher";
+import { trackEvent } from "@/lib/analytics";
 
 const Index = () => {
   const { currentMood, setMood, userName } = useMood();
@@ -55,14 +56,20 @@ const Index = () => {
               mood={m}
               index={i}
               selected={currentMood === m.id}
-              onClick={() => setMood(m.id)}
+              onClick={() => {
+                setMood(m.id);
+                trackEvent({ type: "mood_selected", mood: m.id });
+              }}
             />
           ))}
         </div>
         {currentMood && (
           <div className="pt-1 animate-fade-in">
             <button
-              onClick={() => setMood(currentMood)}
+              onClick={() => {
+                setMood(currentMood);
+                trackEvent({ type: "mood_selected", mood: currentMood });
+              }}
               className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground/70 hover:text-primary-glow transition-colors inline-flex items-center gap-2"
             >
               <span className="h-px w-6 bg-current opacity-50" />
