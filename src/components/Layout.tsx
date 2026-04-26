@@ -9,12 +9,12 @@ import { getMood } from "@/lib/moods";
 import culturaLuxLogo from "@/assets/cultura-lux-logo.png";
 
 const NAV = [
-  { to: "/", label: "Home", icon: Home },
-  { to: "/sanctuary", label: "Sanctuary", icon: Sparkles },
-  { to: "/explore", label: "Explore", icon: Compass },
-  { to: "/shop", label: "Shop", icon: ShoppingBag },
-  { to: "/membership", label: "Membership", icon: Crown },
-  { to: "/dashboard", label: "Dashboard", icon: BarChart3 },
+  { to: "/", label: "Home", shortLabel: "Home", icon: Home },
+  { to: "/sanctuary", label: "Sanctuary", shortLabel: "Sanct.", icon: Sparkles },
+  { to: "/explore", label: "Explore", shortLabel: "Explore", icon: Compass },
+  { to: "/shop", label: "Shop", shortLabel: "Shop", icon: ShoppingBag },
+  { to: "/membership", label: "Membership", shortLabel: "Member", icon: Crown },
+  { to: "/dashboard", label: "Dashboard", shortLabel: "Stats", icon: BarChart3 },
 ];
 
 export default function Layout() {
@@ -94,21 +94,21 @@ export default function Layout() {
       <Footer />
 
       {/* Mobile bottom nav */}
-      <nav className="md:hidden fixed bottom-4 inset-x-4 z-40 glass-strong rounded-full px-2 py-2 flex justify-around">
-        {NAV.map(({ to, label, icon: Icon }) => (
+      <nav className="md:hidden fixed bottom-3 inset-x-2 z-40 glass-strong rounded-full px-1 py-1.5 flex justify-between gap-0.5">
+        {NAV.map(({ to, shortLabel, icon: Icon }) => (
           <NavLink
             key={to}
             to={to}
             end={to === "/"}
             className={({ isActive }) =>
               cn(
-                "flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-full text-[10px] transition-colors",
+                "flex flex-1 min-w-0 flex-col items-center gap-0.5 px-1 py-1 rounded-full text-[9px] leading-none transition-colors",
                 isActive ? "text-primary-glow" : "text-muted-foreground"
               )
             }
           >
-            <Icon className="h-5 w-5" />
-            <span>{label}</span>
+            <Icon className="h-4 w-4 shrink-0" />
+            <span className="truncate max-w-full">{shortLabel}</span>
           </NavLink>
         ))}
       </nav>

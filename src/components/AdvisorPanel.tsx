@@ -194,10 +194,12 @@ export function AdvisorPanel({
 
       {response && !redirectToSanctuary && (
         <div className="space-y-6 animate-fade-in-up">
-          <article className="glass rounded-3xl p-6 md:p-8 space-y-3 relative overflow-hidden">
+          <article className="glass rounded-3xl p-6 md:p-8 space-y-3 relative overflow-hidden bg-background/70 ring-1 ring-primary/15 shadow-[0_20px_60px_-20px_hsl(var(--background)/0.9)]">
+            {/* Dark scrim for legibility */}
+            <div aria-hidden className="absolute inset-0 bg-background/55 pointer-events-none" />
             <div
               aria-hidden
-              className="absolute inset-0 pattern-zellige opacity-[0.25] pointer-events-none"
+              className="absolute inset-0 pattern-zellige opacity-[0.18] mix-blend-overlay pointer-events-none"
             />
             <div className="relative flex items-center gap-3 text-[10px] uppercase tracking-[0.3em] text-primary-glow">
               <span
