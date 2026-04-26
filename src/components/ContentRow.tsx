@@ -1,5 +1,6 @@
 import { ReactNode, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 
 export interface RowItem {
   id: string;
@@ -110,6 +111,15 @@ export function ContentRow({ title, items, renderItem }: Props) {
               rel="noreferrer"
               className="contents"
               aria-label={`Open ${item.title}`}
+              onClick={() =>
+                trackEvent({
+                  type: "recommendation_click",
+                  rowTitle: title,
+                  itemId: item.id,
+                  itemTitle: item.title,
+                  url: item.url,
+                })
+              }
             >
               {Card}
             </a>

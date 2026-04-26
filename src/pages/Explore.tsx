@@ -4,6 +4,7 @@ import { useMood } from "@/context/MoodContext";
 import { getMood } from "@/lib/moods";
 import { fetchBooks, type BookCard } from "@/lib/advisorClient";
 import { Skeleton } from "@/components/ui/skeleton";
+import { trackEvent } from "@/lib/analytics";
 
 type Tab = "books" | "quotes" | "proverbs" | "stories";
 
@@ -74,12 +75,14 @@ const Explore = () => {
   }, [tab, currentMood]);
 
   return (
-    <div className="container space-y-10 py-8">
+    <div className="container max-w-6xl space-y-8 md:space-y-10 py-6 md:py-8 px-4 sm:px-6 overflow-x-hidden">
       <header className="space-y-3 animate-fade-in-up">
         <span className="text-xs uppercase tracking-[0.3em] text-primary-glow">Explore</span>
-        <h1 className="font-display text-4xl md:text-6xl text-gradient">Wisdom for the in-between.</h1>
+        <h1 className="font-display text-3xl sm:text-4xl md:text-6xl text-gradient leading-tight break-words">
+          Wisdom for the in-between.
+        </h1>
         {mood ? (
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-muted-foreground break-words">
             Tuned to your mood:{" "}
             <span className="text-primary-glow">{mood.label.toLowerCase()}</span> ·{" "}
             <span className="italic">{mood.whisper}</span>
@@ -91,13 +94,16 @@ const Explore = () => {
         )}
       </header>
 
-      <div className="glass inline-flex rounded-full p-1.5 gap-1">
+      <div className="glass inline-flex max-w-full overflow-x-auto scrollbar-hide rounded-full p-1 sm:p-1.5 gap-1">
         {TABS.map((t) => (
           <button
             key={t.id}
-            onClick={() => setTab(t.id)}
+            onClick={() => {
+              setTab(t.id);
+              trackEvent({ type: "explore_tab_change", tab: t.id });
+            }}
             className={cn(
-              "px-5 py-2 text-sm rounded-full transition-all duration-500",
+              "px-3 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm rounded-full transition-all duration-500 whitespace-nowrap shrink-0",
               tab === t.id
                 ? "bg-primary/20 text-primary-glow shadow-[0_0_20px_-5px_hsl(var(--primary)/0.5)]"
                 : "text-muted-foreground hover:text-foreground"
@@ -109,10 +115,10 @@ const Explore = () => {
       </div>
 
       {tab === "books" ? (
-        <div className="grid md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {loading && books.length === 0
             ? Array.from({ length: 4 }).map((_, i) => (
-                <Skeleton key={i} className="h-40 rounded-3xl" />
+                <Skeleton key={i} className="h-44 rounded-3xl" />
               ))
             : books.map((b, i) => (
                 <a
@@ -120,7 +126,15 @@ const Explore = () => {
                   href={b.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="glass glow-hover rounded-3xl p-6 md:p-8 flex gap-4 animate-fade-in-up"
+                  onClick={() =>
+                    trackEvent({
+                      type: "explore_book_click",
+                      title: b.title,
+                      author: b.author,
+                      mood: currentMood,
+                    })
+                  }
+                  className="glass glow-hover rounded-3xl p-4 sm:p-6 md:p-8 flex flex-col sm:flex-row gap-4 animate-fade-in-up min-w-0"
                   style={{ animationDelay: `${i * 60}ms` }}
                 >
                   {b.cover ? (
@@ -128,16 +142,16 @@ const Explore = () => {
                       src={b.cover}
                       alt=""
                       loading="lazy"
-                      className="w-20 h-28 object-cover rounded-lg shadow-lg shrink-0"
+                      className="w-20 h-28 object-cover rounded-lg shadow-lg shrink-0 self-start"
                     />
                   ) : (
-                    <div className="w-20 h-28 rounded-lg bg-primary/10 shrink-0" />
+                    <div className="w-20 h-28 rounded-lg bg-primary/10 shrink-0 self-start" />
                   )}
-                  <div className="space-y-2 min-w-0">
-                    <h3 className="font-display text-xl md:text-2xl leading-snug truncate">
+                  <div className="space-y-2 min-w-0 flex-1">
+                    <h3 className="font-display text-lg sm:text-xl md:text-2xl leading-snug break-words">
                       {b.title}
                     </h3>
-                    <div className="text-xs uppercase tracking-[0.25em] text-primary-glow/80">
+                    <div className="text-[11px] sm:text-xs uppercase tracking-[0.2em] sm:tracking-[0.25em] text-primary-glow/80 break-words">
                       {b.author}
                       {b.free_full_text ? " · Free full text" : ""}
                     </div>
@@ -162,7 +176,7 @@ const Explore = () => {
                       </div>
                     )}
                     {b.description && (
-                      <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
+                      <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3 break-words">
                         {b.description}
                       </p>
                     )}
@@ -174,17 +188,23 @@ const Explore = () => {
           )}
         </div>
       ) : (
-        <div className="grid md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {STATIC_CONTENT[tab].map((it, i) => (
             <article
               key={it.title + i}
-              className="glass glow-hover rounded-3xl p-6 md:p-8 space-y-3 animate-fade-in-up"
+              className="glass glow-hover rounded-3xl p-4 sm:p-6 md:p-8 space-y-3 animate-fade-in-up min-w-0"
               style={{ animationDelay: `${i * 60}ms` }}
             >
-              <h3 className="font-display text-xl md:text-2xl leading-snug">{it.title}</h3>
-              {it.body && <p className="text-muted-foreground leading-relaxed">{it.body}</p>}
+              <h3 className="font-display text-lg sm:text-xl md:text-2xl leading-snug break-words">
+                {it.title}
+              </h3>
+              {it.body && (
+                <p className="text-muted-foreground leading-relaxed break-words">{it.body}</p>
+              )}
               {it.meta && (
-                <div className="text-xs uppercase tracking-[0.25em] text-primary-glow/80">{it.meta}</div>
+                <div className="text-[11px] sm:text-xs uppercase tracking-[0.25em] text-primary-glow/80 break-words">
+                  {it.meta}
+                </div>
               )}
             </article>
           ))}
