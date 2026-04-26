@@ -79,11 +79,17 @@ const Index = () => {
 
       {/* Recommendations */}
       <div className="space-y-10 md:space-y-12 max-w-6xl mx-auto w-full">
-        {rows.map((row, idx) => (
-          <div key={row.title} className="animate-fade-in-up" style={{ animationDelay: `${480 + idx * 120}ms` }}>
-            <ContentRow title={row.title} items={row.items} />
+        {rows.length > 0 ? (
+          rows.map((row, idx) => (
+            <div key={row.title} className="animate-fade-in-up" style={{ animationDelay: `${480 + idx * 120}ms` }}>
+              <ContentRow title={row.title} items={row.items} />
+            </div>
+          ))
+        ) : currentMood ? (
+          <div className="text-center text-sm text-muted-foreground italic max-w-xl mx-auto animate-fade-in">
+            Curated picks for this feeling are on the way. In the meantime, open the Sanctuary or Explore for tuned recommendations.
           </div>
-        ))}
+        ) : null}
       </div>
     </div>
   );

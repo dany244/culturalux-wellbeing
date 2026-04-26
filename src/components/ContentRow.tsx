@@ -37,6 +37,9 @@ export function ContentRow({ title, items, renderItem }: Props) {
     return () => ro.disconnect();
   }, [items.length]);
 
+  // Guard: never render an empty row (must be after hooks to keep hook order stable).
+  if (!items || items.length === 0) return null;
+
   return (
     <section className="space-y-3 group/row w-full min-w-0">
       <div className="flex items-center justify-center relative px-4">
