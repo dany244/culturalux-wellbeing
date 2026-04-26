@@ -18,6 +18,8 @@ interface Props {
 
 export function ContentRow({ title, items, renderItem }: Props) {
   const scrollRef = useRef<HTMLDivElement>(null);
+  // Guard: never render an empty row.
+  if (!items || items.length === 0) return null;
   const scroll = (dir: 1 | -1) => {
     scrollRef.current?.scrollBy({ left: dir * 600, behavior: "smooth" });
   };
