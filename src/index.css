@@ -1,0 +1,246 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Culturalux — Cinematic wellbeing design system. All colors HSL. */
+
+@layer base {
+:root {
+    /* Softer midnight palette — lifted from pitch-black for a calmer read */
+    /* Mood palettes */
+    --mood-calm: 210 60% 55%;     /* Blue introspection */
+    --mood-warm: 38 92% 64%;      /* Amber healing */
+    --mood-strength: 20 80% 60%;  /* Courage */
+    --mood-peace: 160 50% 55%;    /* Stillness */
+    --background: 230 28% 11%;
+    --foreground: 40 30% 97%;
+
+    --card: 230 24% 15%;
+    --card-foreground: 40 30% 96%;
+
+    --popover: 230 35% 7%;
+    --popover-foreground: 40 30% 96%;
+
+    /* Warm amber/gold — primary glow */
+    --primary: 38 92% 64%;
+    --primary-foreground: 230 40% 8%;
+    --primary-glow: 42 100% 72%;
+
+    --secondary: 230 25% 16%;
+    --secondary-foreground: 40 30% 96%;
+
+    --muted: 230 20% 14%;
+    --muted-foreground: 40 15% 70%;
+
+    --accent: 268 60% 70%;
+    --accent-foreground: 230 40% 8%;
+
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 40 30% 96%;
+
+    --border: 40 20% 96% / 0.08;
+    --input: 230 25% 18%;
+    --ring: 38 92% 64%;
+
+    --radius: 1.25rem;
+
+    /* Glass surfaces */
+    --glass: 230 30% 12% / 0.55;
+    --glass-strong: 230 35% 10% / 0.75;
+    --glass-border: 40 30% 96% / 0.12;
+
+    /* Gradients */
+    --gradient-glow: radial-gradient(circle at 50% 0%, hsl(var(--primary) / 0.25), transparent 60%);
+    --gradient-text: linear-gradient(135deg, hsl(40 30% 98%), hsl(38 80% 80%));
+    --gradient-mood: linear-gradient(135deg, hsl(var(--primary) / 0.4), hsl(var(--accent) / 0.4));
+    --gradient-fade-bottom: linear-gradient(to bottom, transparent, hsl(230 28% 11% / 0.7));
+    --gradient-fade-top: linear-gradient(to bottom, hsl(230 28% 11% / 0.45), transparent 30%, transparent 60%, hsl(230 28% 11% / 0.7));
+
+    /* Shadows & glow */
+    --shadow-glow: 0 0 60px -10px hsl(var(--primary) / 0.5);
+    --shadow-soft: 0 20px 60px -20px hsl(230 50% 2% / 0.6);
+    --shadow-card: 0 10px 40px -10px hsl(230 50% 2% / 0.5);
+
+    /* Motion */
+    --ease-cinema: cubic-bezier(0.22, 1, 0.36, 1);
+    --transition-bg: background-image 1.2s var(--ease-cinema), opacity 1.2s var(--ease-cinema);
+
+    --sidebar-background: 230 35% 6%;
+    --sidebar-foreground: 40 30% 96%;
+    --sidebar-primary: 38 92% 64%;
+    --sidebar-primary-foreground: 230 40% 8%;
+    --sidebar-accent: 230 25% 14%;
+    --sidebar-accent-foreground: 40 30% 96%;
+    --sidebar-border: 40 20% 96% / 0.08;
+    --sidebar-ring: 38 92% 64%;
+  }
+}
+
+@layer base {
+  * { @apply border-border; }
+  html { scroll-behavior: smooth; }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-feature-settings: "ss01", "cv11";
+  }
+  h1, h2, h3, .font-display, .literary {
+    font-family: 'Playfair Display', Georgia, serif;
+    letter-spacing: -0.02em;
+  }
+  /* Cinematic 1s dissolve (no hard cuts) */
+  .cinematic-dissolve {
+    transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 1s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  ::selection { background: hsl(var(--primary) / 0.3); color: hsl(var(--foreground)); }
+}
+
+@layer components {
+  /* Focus Mode: Hide UI after 5s inactivity */
+  .focus-mode {
+    cursor: none;
+  }
+  .focus-mode [class*="layout-"], .focus-mode nav, .focus-mode header {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: opacity 1.5s ease-out;
+  }
+  .focus-mode .content-only {
+    opacity: 1 !important;
+  }
+  .literary-overlay {
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(8px);
+  }
+  .glass {
+    background: hsl(var(--glass));
+    backdrop-filter: blur(24px) saturate(140%);
+    -webkit-backdrop-filter: blur(24px) saturate(140%);
+    border: 1px solid hsl(var(--glass-border));
+    box-shadow: var(--shadow-card);
+  }
+  .glass-strong {
+    background: hsl(var(--glass-strong));
+    backdrop-filter: blur(32px) saturate(160%);
+    -webkit-backdrop-filter: blur(32px) saturate(160%);
+    border: 1px solid hsl(var(--glass-border));
+    box-shadow: var(--shadow-soft);
+  }
+  .text-gradient {
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .glow-soft {
+    box-shadow: 0 0 40px -10px hsl(var(--primary) / 0.35);
+  }
+  .glow-hover {
+    transition: box-shadow 0.5s var(--ease-cinema), transform 0.5s var(--ease-cinema), border-color 0.5s var(--ease-cinema);
+  }
+  .glow-hover:hover {
+    box-shadow: var(--shadow-glow);
+    transform: translateY(-3px);
+    border-color: hsl(var(--primary) / 0.4);
+  }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+  .row-fade-edges {
+    mask-image: linear-gradient(to right, transparent, black 3%, black 97%, transparent);
+  }
+
+  /* Soft text shadow for legibility over imagery */
+  .text-veil {
+    text-shadow: 0 2px 24px hsl(230 50% 2% / 0.7), 0 1px 2px hsl(230 50% 2% / 0.5);
+  }
+
+  /* Avatar / dot glow */
+  .avatar-glow {
+    box-shadow:
+      0 0 0 1px hsl(var(--primary) / 0.35),
+      0 0 24px -2px hsl(var(--primary) / 0.55),
+      0 0 60px -10px hsl(var(--primary-glow) / 0.45);
+  }
+
+  /* Persian-inspired star-tile pattern (subtle, ambient).
+     Honors --pattern-hue (HSL string) so the overlay can take on the current mood. */
+  .pattern-persian {
+    --pattern-hue: var(--primary);
+    background-image:
+      radial-gradient(circle at 50% 50%, hsl(var(--pattern-hue) / 0.10) 0 1px, transparent 1.5px),
+      conic-gradient(from 22.5deg at 50% 50%,
+        hsl(var(--pattern-hue) / 0.06) 0deg, transparent 45deg,
+        hsl(var(--pattern-hue) / 0.06) 90deg, transparent 135deg,
+        hsl(var(--pattern-hue) / 0.06) 180deg, transparent 225deg,
+        hsl(var(--pattern-hue) / 0.06) 270deg, transparent 315deg);
+    background-size: 28px 28px, 56px 56px;
+    background-position: 0 0, 14px 14px;
+    transition: filter 1.6s var(--ease-cinema);
+  }
+
+  /* Moroccan zellige-style diamond lattice.
+     Includes a dark scrim base so content layered above the tiled pattern
+     stays legible (especially on lighter mood backgrounds). */
+  .pattern-zellige {
+    --pattern-hue: var(--primary);
+    background-color: hsl(var(--background) / 0.55);
+    background-image:
+      linear-gradient(45deg, hsl(var(--pattern-hue) / 0.09) 25%, transparent 25%, transparent 75%, hsl(var(--pattern-hue) / 0.09) 75%),
+      linear-gradient(45deg, hsl(var(--pattern-hue) / 0.09) 25%, transparent 25%, transparent 75%, hsl(var(--pattern-hue) / 0.09) 75%);
+    background-size: 22px 22px;
+    background-position: 0 0, 11px 11px;
+    transition: filter 1.6s var(--ease-cinema);
+  }
+
+  /* Thin ornamental divider — a single quiet line with a centered diamond */
+  .pattern-divider {
+    position: relative;
+    height: 1px;
+    background: linear-gradient(to right,
+      transparent,
+      hsl(var(--primary-glow) / 0.35) 30%,
+      hsl(var(--primary-glow) / 0.35) 70%,
+      transparent);
+  }
+  .pattern-divider::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 6px;
+    height: 6px;
+    transform: translate(-50%, -50%) rotate(45deg);
+    background: hsl(var(--primary-glow));
+    box-shadow: 0 0 12px hsl(var(--primary) / 0.6);
+  }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 30px -10px hsl(var(--primary) / 0.3); }
+  50% { box-shadow: 0 0 50px -5px hsl(var(--primary) / 0.55); }
+}
+@keyframes ken-burns {
+  0% { transform: scale(1.05) translate(0, 0); }
+  100% { transform: scale(1.15) translate(-1%, -1%); }
+}
+@keyframes caret-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+@keyframes drift {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-2px) rotate(2deg); }
+}
